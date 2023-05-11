@@ -1,8 +1,13 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <nav class="bg-purple-500 mb-8">
+      <h1 class="text-2xl font-bold text-white">AURA PRODUCTORA</h1>
+      <div class="mt-4">
+        
+        <router-link to="/" class="uppercase bg-white hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">Entrada</router-link> 
+        <router-link to="/barra" class="ml-4 uppercase bg-white hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">Barra</router-link>
+   
+      </div>
     </nav>
     <router-view />
   </div>
@@ -27,6 +32,7 @@ nav a {
 }
 
 nav a.router-link-exact-active {
-  color: #42b983;
+  color: black;
+  background-color: rgb(33, 201, 33) !important;
 }
 </style>
