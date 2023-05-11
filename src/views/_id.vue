@@ -73,8 +73,8 @@
                                     <h2 class="text-3xl text-green-600 uppercase mb-2 py-2 px-4" v-if="entrada.estado == 'ingreso' && !loader" >Ya Ingreso</h2>
                                      <h2 class="text-3xl text-red-600 uppercase mb-2 py-2 px-4" v-if="entrada.estado == 'no-ingreso' && !loader">Ya ingreso Confirmado</h2>
                                     <div v-if="loader"><span class="loader"></span></div>
-                                     <button @click="confirmarIngreso()"  v-if="entrada.estado == 'no-ingreso' && !loader" class="uppercase bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
-                                    Confirmar Ingreso
+                                    <button @click="confirmarIngreso()"  v-if="entrada.estado == 'no-ingreso' && !loader" class="uppercase bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+                                        Confirmar Ingreso
                                     </button> 
 								</div>
 								<!-- <div class="flex flex-col ml-auto">
@@ -118,7 +118,9 @@ export default {
         async confirmar(){
             this.modal = false
             this.loader = true
-            axios.patch('http://192.168.1.8:5050/entradas/' + this.$route.params.id, {
+            
+            axios.patch('https://apiauramanager.alguientiene.com/entradas/' + this.$route.params.id, {
+            // axios.patch('http://192.168.1.8:5050/entradas/' + this.$route.params.id, {
                 estado: 'ingreso'
             }, {
                 headers: { 'Authorization': 'Bearer ' + this.token } 
@@ -143,7 +145,7 @@ export default {
         },
 
         getEntrada() {
-            axios.get('http://192.168.1.8:5050/entradas/' + this.$route.params.id,
+            axios.get('https://apiauramanager.alguientiene.com/entradas/' + this.$route.params.id,
                 { 
                     headers: { 'Authorization': 'Bearer ' + this.token } 
                 })
