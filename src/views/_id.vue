@@ -70,8 +70,8 @@
 							<div class=" items-center p-5 text-sm mt-4">
 								<div class="flex flex-col">
                                     <!--  -->
-                                    <h2 class="text-3xl text-green-600 uppercase mb-2 py-2 px-4" v-if="entrada.estado == 'ingreso' && !loader" >Ya Ingreso</h2>
-                                     <h2 class="text-3xl text-red-600 uppercase mb-2 py-2 px-4" v-if="entrada.estado == 'no-ingreso' && !loader">Ya ingreso Confirmado</h2>
+                                    <h2 class="text-3xl text-red-600 uppercase mb-2 py-2 px-4" v-if="entrada.estado == 'ingreso' && !loader" >YA INGRESO</h2>
+                                     <h2 class="text-3xl text-green-600 uppercase mb-2 py-2 px-4" v-if="entrada.estado == 'no-ingreso' && !loader"> AUN NO INGRESO</h2>
                                     <div v-if="loader"><span class="loader"></span></div>
                                     <button @click="confirmarIngreso()"  v-if="entrada.estado == 'no-ingreso' && !loader" class="uppercase bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
                                         Confirmar Ingreso
