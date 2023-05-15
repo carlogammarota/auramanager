@@ -51,12 +51,12 @@
 
 
 
-        <div class="mx-2" v-if="entrada._id">
+        <div class="mx-2 mb-24" v-if="entrada._id">
             <h1 class="text-4xl">TICKET</h1>
 
             <div class="max-w-md w-full h-full z-10 bg-purple-900 rounded-3xl m-auto">
                 <div class="flex flex-col mt-4">
-                    <div class="bg-white relative drop-shadow-2xl  rounded-3xl p-4 m-4">
+                    <div class="bg-white relative drop-shadow-2xl rounded-3xl p-4 m-4" style="background: #f5eef9;">
                         <div class="">
                             <div class=" relative h-32 w-32   sm:mb-0 mb-3 hidden">
                                 <img src="https://tailwindcomponents.com/storage/avatars/njkIbPhyZCftc4g9XbMWwVsa7aGVPajYLRXhEeoo.jpg"
@@ -82,7 +82,7 @@
                                         Consumision
                                     </h1>
                                 </div>
-                                <div class=" items-center justify-between">
+                                <div class=" items-center justify-between mt-4">
                                     <div class=" items-center text-center  my-1">
                                         <h2 class="font-medium">Aura Productora Ticket</h2>
                                     </div>
@@ -90,16 +90,17 @@
                                 </div>
                                 <div class="ml-auto text-blue-800">{{ entrada._id }}</div>
                                 <!-- //mostrar dni -->
-                                <div class="ml-auto text-blue-800 text-3xl my-2">DNI:
-                                    <span class="font-bold">{{ entrada.dni }}</span>
+                                <p class="mt-8 text-1xl">Ultimos 3 numeros</p>
+                                <div class="ml-auto text-blue-800 text-3xl mb-2">
+                                    <span class="font-bold">DNI: {{ entrada.dni }}</span>
                                 </div>
                                 <!-- {{ entrada.dni }} -->
                                 <!-- <div class="border-b border-dashed border-b-2 my-5"></div> -->
 
-                                <div class="border-b border-dashed border-b-2  pt-5">
+                                <div class="border-b border-dashed border-black border-b-2  pt-5">
 
-                                    <div class="absolute rounded-full w-5 h-5 bg-blue-900 -mt-2 -left-2"></div>
-                                    <div class="absolute rounded-full w-5 h-5 bg-blue-900 -mt-2 -right-2"></div>
+                                    <div class="absolute rounded-full w-5 h-5 bg-purple-900 -mt-2 -left-2"></div>
+                                    <div class="absolute rounded-full w-5 h-5 bg-purple-900 -mt-2 -right-2"></div>
                                 </div>
                                 <div class=" items-center p-5 text-sm mt-4">
                                     <div class="flex flex-col">
@@ -122,9 +123,9 @@
 								</div> -->
                                 </div>
 
-                                <div class="border-b border-dashed border-b-2  pt-2">
-                                    <div class="absolute rounded-full w-5 h-5 bg-blue-900 -mt-2 -left-2"></div>
-                                    <div class="absolute rounded-full w-5 h-5 bg-blue-900 -mt-2 -right-2"></div>
+                                <div class="border-b border-dashed border-black border-b-2  pt-2">
+                                    <div class="absolute rounded-full w-5 h-5 bg-purple-900 -mt-2 -left-2"></div>
+                                    <div class="absolute rounded-full w-5 h-5 bg-purple-900 -mt-2 -right-2"></div>
                                 </div>
                                 <div class=" items-center p-5 text-sm mt-4">
                                     <div class="flex flex-col">
@@ -132,12 +133,13 @@
                                         <h2 v-if="!entrada.consumision"
                                             class="text-3xl text-red-600 uppercase mb-2 py-2 px-4">CONSUMISION ENTREGADA
                                         </h2>
-                                        <h2 v-if="entrada.consumision"
-                                            class="text-3xl text-green-600 uppercase mb-2 py-2 px-4">+1 CONSUMISION
+                                        <h2 v-if="entrada.consumision && !loaderConsumision"
+                                            class=" text-3xl text-green-600 uppercase mb-2 py-2 px-4">+1 CONSUMISION
                                         </h2>
 
-                                        <div v-if="loader"><span class="loader"></span></div>
-                                        <button v-if="entrada.consumision" @click="EntregarConsumision()"
+                                        <div v-if="loaderConsumision"><span class="loader"></span></div>
+                                        <button v-if="entrada.consumision && !loaderConsumision"
+                                            @click="EntregarConsumision()"
                                             class="uppercase bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
                                             Entregar Consumision
                                         </button>
@@ -167,6 +169,7 @@ export default {
             entrada: {},
             modal: false,
             loader: false,
+            loaderConsumision: false,
             scaner: false,
             modalConsumision: false,
             dni: 0,
@@ -182,7 +185,7 @@ export default {
         },
         confirmarConsumision() {
             this.modalConsumision = false;
-            this.loader = true;
+            this.loaderConsumision = true;
             axios.patch('https://apiauramanager.alguientiene.com/entradas/' + this.$route.params.id, {
 
                 consumision: false
@@ -191,12 +194,13 @@ export default {
             }).then(response => {
                 // const sound = new Audio(require('@/assets/ingreso.mp3'))
                 // sound.play()
-                this.loader = false;
+                this.loaderConsumision = false;
                 this.entrada = response.data
                 this.modalConsumision = false;
                 // this.$router.push('/entradas')
             }).catch(error => {
                 console.log(error)
+                this.loaderConsumision = false;
             });
 
             // axios.patch('http://

@@ -5,10 +5,10 @@
       <h1 class="text-2xl font-bold text-white">AURA PRODUCTORA</h1>
       <div class="mt-4">
 
-        <router-link to="/"
-          class="uppercase bg-white hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">Entrada</router-link>
+        <router-link to="/" class="uppercase bg-white hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">QR
+          ENTRADA</router-link>
         <router-link to="/barra"
-          class="ml-4 uppercase bg-white hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">Barra</router-link>
+          class="ml-4 uppercase bg-white hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">QR BARRA</router-link>
 
       </div>
     </nav>
