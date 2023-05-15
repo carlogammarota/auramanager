@@ -1,18 +1,18 @@
 <template>
     <div>
         <!-- Modal overlay -->
-        <div class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center" v-if="modalConsumision">
+        <div class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center" v-if="modalconsumicion">
             <!-- Modal container -->
             <div class="bg-white rounded-lg p-4 mx-4">
                 <!-- Modal content -->
 
-                <div class="text-lg my-4">Entregar Consumision ?</div>
+                <div class="text-lg my-4">Entregar consumicion ?</div>
                 <!-- Botones del modal -->
                 <div class="flex justify-end botones">
                     <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg mr-2"
                         @click="cancelar()">Cancelar</button>
                     <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg"
-                        @click="confirmarConsumision()">Entregar</button>
+                        @click="confirmarconsumicion()">Entregar</button>
                 </div>
             </div>
         </div>
@@ -77,9 +77,9 @@
                                     <img src="@/assets/logo.png" class=" mx-auto mb-4">
 
                                     <!-- {{ entrada }} -->
-                                    <h1 class="text-4xl text-green-600" v-if="entrada.consumision">+1 Consumision</h1>
-                                    <h1 class="text-4xl text-red-600 line-through" v-if="!entrada.consumision">+1
-                                        Consumision
+                                    <!-- <h1 class="text-4xl text-green-600" v-if="entrada.consumicion">+1 consumicion</h1> -->
+                                    <h1 class="text-4xl text-red-600 line-through" v-if="!entrada.consumicion">+1
+                                        C
                                     </h1>
                                 </div>
                                 <div class=" items-center justify-between mt-4">
@@ -90,9 +90,11 @@
                                 </div>
                                 <div class="ml-auto text-blue-800">{{ entrada._id }}</div>
                                 <!-- //mostrar dni -->
-                                <p class="mt-8 text-1xl">Ultimos 3 numeros</p>
-                                <div class="ml-auto text-blue-800 text-3xl mb-2">
-                                    <span class="font-bold">DNI: {{ entrada.dni }}</span>
+                                <div v-if="entrada.dni">
+                                    <p class="mt-8 text-1xl">Ultimos 3 numeros</p>
+                                    <div class="ml-auto text-blue-800 text-3xl mb-2">
+                                        <span class="font-bold">DNI: {{ entrada.dni }}</span>
+                                    </div>
                                 </div>
                                 <!-- {{ entrada.dni }} -->
                                 <!-- <div class="border-b border-dashed border-b-2 my-5"></div> -->
@@ -130,18 +132,18 @@
                                 <div class=" items-center p-5 text-sm mt-4">
                                     <div class="flex flex-col">
                                         <!--  -->
-                                        <h2 v-if="!entrada.consumision"
-                                            class="text-3xl text-red-600 uppercase mb-2 py-2 px-4">CONSUMISION ENTREGADA
+                                        <h2 v-if="!entrada.consumicion"
+                                            class="text-3xl text-red-600 uppercase mb-2 py-2 px-4">Consumición ENTREGADA
                                         </h2>
-                                        <h2 v-if="entrada.consumision && !loaderConsumision"
-                                            class=" text-3xl text-green-600 uppercase mb-2 py-2 px-4">+1 CONSUMISION
+                                        <h2 v-if="entrada.consumicion && !loaderconsumicion"
+                                            class=" text-3xl text-green-600 uppercase mb-2 py-2 px-4">+1 Consumición
                                         </h2>
 
-                                        <div v-if="loaderConsumision"><span class="loader"></span></div>
-                                        <button v-if="entrada.consumision && !loaderConsumision"
-                                            @click="EntregarConsumision()"
+                                        <div v-if="loaderconsumicion"><span class="loader"></span></div>
+                                        <button v-if="entrada.consumicion && !loaderconsumicion"
+                                            @click="Entregarconsumicion()"
                                             class="uppercase bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
-                                            Entregar Consumision
+                                            Entregar Consumición
                                         </button>
                                     </div>
                                     <!-- <div class="flex flex-col ml-auto">
@@ -169,9 +171,9 @@ export default {
             entrada: {},
             modal: false,
             loader: false,
-            loaderConsumision: false,
+            loaderconsumicion: false,
             scaner: false,
-            modalConsumision: false,
+            modalconsumicion: false,
             dni: 0,
             token: "eyJhbGciOiJIUzI1NiIsInR5cCI6ImFjY2VzcyJ9.eyJpYXQiOjE2ODM4MzUzMTksImV4cCI6MTY4MzkyMTcxOSwiYXVkIjoiaHR0cHM6Ly95b3VyZG9tYWluLmNvbSIsImlzcyI6ImZlYXRoZXJzIiwic3ViIjoiNjQ1ZDNiZGUzZjY5Y2IwY2E5MTBiODJkIiwianRpIjoiNjU0NjBkMjctN2IxZC00ZDc2LTkwZDAtZmUzZDlmZTI5NzJiIn0.fhFPyewJQBoBmJMM81cXimZJwpLY119ZVNAOgJtfofU"
         }
@@ -180,27 +182,27 @@ export default {
         confirmarIngreso() {
             this.modal = true
         },
-        EntregarConsumision() {
-            this.modalConsumision = true
+        Entregarconsumicion() {
+            this.modalconsumicion = true
         },
-        confirmarConsumision() {
-            this.modalConsumision = false;
-            this.loaderConsumision = true;
+        confirmarconsumicion() {
+            this.modalconsumicion = false;
+            this.loaderconsumicion = true;
             axios.patch('https://apiauramanager.alguientiene.com/entradas/' + this.$route.params.id, {
 
-                consumision: false
+                consumicion: false
             }, {
                 headers: { 'Authorization': 'Bearer ' + this.token }
             }).then(response => {
                 // const sound = new Audio(require('@/assets/ingreso.mp3'))
                 // sound.play()
-                this.loaderConsumision = false;
+                this.loaderconsumicion = false;
                 this.entrada = response.data
-                this.modalConsumision = false;
+                this.modalconsumicion = false;
                 // this.$router.push('/entradas')
             }).catch(error => {
                 console.log(error)
-                this.loaderConsumision = false;
+                this.loaderconsumicion = false;
             });
 
             // axios.patch('http://
@@ -247,7 +249,7 @@ export default {
         cancelar() {
 
             this.modal = false;
-            this.modalConsumision = false;
+            this.modalconsumicion = false;
             // this.$router.push({ name: 'entradas' })
         },
 
