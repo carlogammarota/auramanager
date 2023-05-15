@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Entrada from "../views/Entrada.vue";
 import _id from "../views/_id.vue";
+// import Login from "../components/Login.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -10,6 +11,11 @@ const routes = [
     path: "/",
     component: Entrada,
   },
+  // {
+  //   name: "login",
+  //   path: "/login",
+  //   component: Login,
+  // },
   {
     path: "/entradas/:id",
     name: "_id",

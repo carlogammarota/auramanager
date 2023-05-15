@@ -1,6 +1,22 @@
 <template>
     <div>
         <!-- Modal overlay -->
+        <div class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center" v-if="modalConsumision">
+            <!-- Modal container -->
+            <div class="bg-white rounded-lg p-4 mx-4">
+                <!-- Modal content -->
+
+                <div class="text-lg my-4">Entregar Consumision ?</div>
+                <!-- Botones del modal -->
+                <div class="flex justify-end botones">
+                    <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg mr-2"
+                        @click="cancelar()">Cancelar</button>
+                    <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg"
+                        @click="confirmarConsumision()">Entregar</button>
+                </div>
+            </div>
+        </div>
+        <!-- Modal overlay -->
         <div class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center" v-if="modal">
             <!-- Modal container -->
             <div class="bg-white rounded-lg p-4 mx-4">
@@ -38,7 +54,7 @@
         <div class="mx-2" v-if="entrada._id">
             <h1 class="text-4xl">TICKET</h1>
 
-            <div class="max-w-md w-full h-full z-10 bg-purple-900 rounded-3xl ">
+            <div class="max-w-md w-full h-full z-10 bg-purple-900 rounded-3xl m-auto">
                 <div class="flex flex-col mt-4">
                     <div class="bg-white relative drop-shadow-2xl  rounded-3xl p-4 m-4">
                         <div class="">
@@ -60,8 +76,11 @@
 
                                     <img src="@/assets/logo.png" class=" mx-auto mb-4">
 
-
-                                    <h1>+1 Consumision</h1>
+                                    <!-- {{ entrada }} -->
+                                    <h1 class="text-4xl text-green-600" v-if="entrada.consumision">+1 Consumision</h1>
+                                    <h1 class="text-4xl text-red-600 line-through" v-if="!entrada.consumision">+1
+                                        Consumision
+                                    </h1>
                                 </div>
                                 <div class=" items-center justify-between">
                                     <div class=" items-center text-center  my-1">
@@ -89,6 +108,7 @@
                                             v-if="entrada.estado == 'ingreso' && !loader">YA INGRESO</h2>
                                         <h2 class="text-3xl text-green-600 uppercase mb-2 py-2 px-4"
                                             v-if="entrada.estado == 'no-ingreso' && !loader"> AUN NO INGRESO</h2>
+
                                         <div v-if="loader"><span class="loader"></span></div>
                                         <button @click="confirmarIngreso()" v-if="entrada.estado == 'no-ingreso' && !loader"
                                             class="uppercase bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
@@ -105,6 +125,28 @@
                                 <div class="border-b border-dashed border-b-2  pt-2">
                                     <div class="absolute rounded-full w-5 h-5 bg-blue-900 -mt-2 -left-2"></div>
                                     <div class="absolute rounded-full w-5 h-5 bg-blue-900 -mt-2 -right-2"></div>
+                                </div>
+                                <div class=" items-center p-5 text-sm mt-4">
+                                    <div class="flex flex-col">
+                                        <!--  -->
+                                        <h2 v-if="!entrada.consumision"
+                                            class="text-3xl text-red-600 uppercase mb-2 py-2 px-4">CONSUMISION ENTREGADA
+                                        </h2>
+                                        <h2 v-if="entrada.consumision"
+                                            class="text-3xl text-green-600 uppercase mb-2 py-2 px-4">+1 CONSUMISION
+                                        </h2>
+
+                                        <div v-if="loader"><span class="loader"></span></div>
+                                        <button v-if="entrada.consumision" @click="EntregarConsumision()"
+                                            class="uppercase bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+                                            Entregar Consumision
+                                        </button>
+                                    </div>
+                                    <!-- <div class="flex flex-col ml-auto">
+                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                    Button
+                                    </button>
+								</div> -->
                                 </div>
 
                             </div>
@@ -126,6 +168,7 @@ export default {
             modal: false,
             loader: false,
             scaner: false,
+            modalConsumision: false,
             dni: 0,
             token: "eyJhbGciOiJIUzI1NiIsInR5cCI6ImFjY2VzcyJ9.eyJpYXQiOjE2ODM4MzUzMTksImV4cCI6MTY4MzkyMTcxOSwiYXVkIjoiaHR0cHM6Ly95b3VyZG9tYWluLmNvbSIsImlzcyI6ImZlYXRoZXJzIiwic3ViIjoiNjQ1ZDNiZGUzZjY5Y2IwY2E5MTBiODJkIiwianRpIjoiNjU0NjBkMjctN2IxZC00ZDc2LTkwZDAtZmUzZDlmZTI5NzJiIn0.fhFPyewJQBoBmJMM81cXimZJwpLY119ZVNAOgJtfofU"
         }
@@ -133,6 +176,31 @@ export default {
     methods: {
         confirmarIngreso() {
             this.modal = true
+        },
+        EntregarConsumision() {
+            this.modalConsumision = true
+        },
+        confirmarConsumision() {
+            this.modalConsumision = false;
+            this.loader = true;
+            axios.patch('https://apiauramanager.alguientiene.com/entradas/' + this.$route.params.id, {
+
+                consumision: false
+            }, {
+                headers: { 'Authorization': 'Bearer ' + this.token }
+            }).then(response => {
+                // const sound = new Audio(require('@/assets/ingreso.mp3'))
+                // sound.play()
+                this.loader = false;
+                this.entrada = response.data
+                this.modalConsumision = false;
+                // this.$router.push('/entradas')
+            }).catch(error => {
+                console.log(error)
+            });
+
+            // axios.patch('http://
+
         },
         async confirmar() {
 
@@ -174,7 +242,8 @@ export default {
         },
         cancelar() {
 
-            this.modal = false
+            this.modal = false;
+            this.modalConsumision = false;
             // this.$router.push({ name: 'entradas' })
         },
 
