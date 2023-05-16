@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Entrada from "../views/Entrada.vue";
 import _id from "../views/_id.vue";
+import Gracias from "../views/Gracias.vue";
 // import Login from "../components/Login.vue";
 Vue.use(VueRouter);
 
@@ -20,6 +21,11 @@ const routes = [
     path: "/entradas/:id",
     name: "_id",
     component: _id,
+  },
+  {
+    path: "/gracias/:id",
+    name: "gracias",
+    component: Gracias,
   },
   {
     path: "/barra",
