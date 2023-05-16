@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- <Login></Login> -->
-    <nav class="bg-purple-500 mb-4">
+    <nav class="bg-purple-500">
       <h1 class="text-2xl font-bold text-white">AURA PRODUCTORA</h1>
       <div class="mt-4">
 

@@ -1,6 +1,6 @@
 <template>
     <div>
-        GRACIAS POR SU COMPRA
+        <!-- GRACIAS POR SU COMPRA -->
         <div class="min-h-screen bg-gray-100 flex items-center justify-center">
             <div class="bg-white p-8 rounded shadow-md max-w-md w-full">
                 <h1 class="text-2xl font-bold mb-4">Información de Pago</h1>
