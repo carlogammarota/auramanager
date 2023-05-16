@@ -36,12 +36,13 @@
 
                     <!-- Aquí puedes agregar más detalles de pago si los necesitas -->
 
-                    <div class="flex justify-center mt-8" v-for="compra in compra.linkEntradas" :key="compra.index">
+                    <div class="flex justify-center mt-8" v-for="link in linkEntradas" :key="link.index">
                         <!-- {{ compra }} -->
                         <!-- {{ compra.linkEntradas }} -->
-                        <a href="#" :href="compra.link" target="_blank"
+                        <!-- {{ link }} -->
+                        <a href="#" :href="link.link" target="_blank"
                             class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full mx-2 uppercase">
-                            Descargar Ticket {{ compra.idNumero }}
+                            Descargar Ticket {{ link.idNumero }}
                         </a>
                     </div>
                 </div>
@@ -49,12 +50,13 @@
                 <!-- <p class="mb-4"><strong>Nombre de la fiesta:</strong> Aura Productora</p> -->
 
 
-
+                <!-- {{ linkEntradas }} -->
 
 
             </div>
         </div>
         <!-- {{ compra }} -->
+        <!-- {{ linkEntradas }} -->
     </div>
 </template>
 <script>
@@ -66,12 +68,21 @@ export default {
             order: {},
             products: [],
             total: 0,
-            compra: {}
+            compra: {},
+            linkEntradas: {}
         }
     },
     async mounted() {
-        this.compra = await axios.get(`https://apiauramanager.alguientiene.com/payments/${this.id}`)
-        // this.compra = await axios.get(`http://192.168.1.8:5050/payments/${this.id}`)
+        this.compra = await axios.get(`http://192.168.1.8:5050/payments/${this.id}`);
+
+        this.linkEntradas = await axios.get(`http://192.168.1.8:5050/link-entradas/${this.id}`)
+        this.linkEntradas = this.linkEntradas.data.linkEntradas
+
+        console.log(this.linkEntradas.data)
+
+        // this.compra = await axios.get(`https://apiauramanager.alguientiene.com/link-entradas/${this.id}`)
+        // this.compra = await axios.get(`http://192.168.1.8:5050/link-entradas/646325afef88831bf2e0b749`)
+        console.log(this.compra.data)
         this.compra = this.compra.data
 
     },
