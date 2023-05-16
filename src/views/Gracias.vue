@@ -5,7 +5,7 @@
             <div class="bg-white p-8 rounded shadow-md max-w-md w-full">
                 <h1 class="text-2xl font-bold mb-4">Información de Pago</h1>
                 <h1 class="text-2xl font-bold">Aura Productora</h1>
-                <p class="mb-4"><strong>Fecha:</strong> Viernes 19 de mayo</p>
+                <p class="mb-4"><strong>Fecha:</strong> Viernes 19 de mayo a las 00:00hs</p>
                 <!-- {{ compra.estado }} -->
 
 

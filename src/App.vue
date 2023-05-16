@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- <Login></Login> -->
-    <nav class="bg-purple-500">
+    <nav class="bg-purple-500" v-if="token">
       <h1 class="text-2xl font-bold text-white">AURA PRODUCTORA</h1>
       <div class="mt-4">
 
@@ -18,6 +18,11 @@
 <script>
 import Login from './components/Login.vue'
 export default {
+  data() {
+    return {
+      token: false
+    }
+  },
 
   components: {
     Login

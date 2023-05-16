@@ -87,7 +87,9 @@ export default {
                     this.loader = false;
                     console.log('response', response.data);
                     this.linkDePago = response.data;
-                    window.open(this.linkDePago, '_blank');
+                    // window.open(this.linkDePago, '_blank');
+                    //redirigir en la misma pagina
+                    window.location.href = this.linkDePago;
                 }, (error) => {
                     console.log('error', error);
                     this.loader = false;
