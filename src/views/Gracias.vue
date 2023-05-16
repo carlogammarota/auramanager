@@ -73,9 +73,9 @@ export default {
         }
     },
     async mounted() {
-        this.compra = await axios.get(`http://192.168.1.8:5050/payments/${this.id}`);
+        this.compra = await axios.get(`https://apiauramanager.alguientiene.com/payments/${this.id}`);
 
-        this.linkEntradas = await axios.get(`http://192.168.1.8:5050/link-entradas/${this.id}`)
+        this.linkEntradas = await axios.get(`https://apiauramanager.alguientiene.com/link-entradas/${this.id}`)
         this.linkEntradas = this.linkEntradas.data.linkEntradas
 
         console.log(this.linkEntradas.data)
