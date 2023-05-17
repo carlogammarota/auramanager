@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- {{ getToken }} -->
-    {{ getRole }}
+    <!-- {{ getRole }} -->
     <nav class="bg-purple-500" v-if="getToken">
       <div class="d-block mt-4">
         <h1 class="text-2xl font-bold text-white ">AURA PRODUCTORA</h1>

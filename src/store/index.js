@@ -8,7 +8,9 @@ export default new Vuex.Store({
   state: {
     token: false,
     token_string: "token",
-    user: null,
+    user: {
+      permissions: ['none']
+    },
     role: null,
   },
   getters: {
