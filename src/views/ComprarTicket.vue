@@ -34,15 +34,17 @@
                 <!-- </div> -->
                 <p>Ticket con +1 Consumición</p>
                 <img src="@/assets/mercadopago.webp" class=" mx-auto my-8" style="width:100px !important;"></img>
-                <div class="mt-8 pb-4">
+                <div class="mt-8 pb-4 w-full">
 
                     <button @click="generarLink()"
-                        class="py-2 px-4 rounded text-white font-semibold text-center btn-comprar bg-green-500">
+                        class="py-2 px-4 rounded text-white font-semibold text-center btn-comprar bg-green-500 w-full">
                         Comprar Ticket
                     </button>
                 </div>
+                <Ayuda class="mt-12 bg-gray-300 p-4 rounded" />
             </div>
         </div>
+
         <div v-if="!ventaDeEntradas">
             <!-- generar en tailwindcss un mensaje que diga que no hay entradas disponibles -->
             <div class="h-screen m-auto mt-24">
@@ -53,6 +55,7 @@
 </template>
 <script>
 import axios from "axios";
+import Ayuda from "@/components/Ayuda.vue";
 export default {
     name: "venta-de-entradas",
     data() {
@@ -119,6 +122,7 @@ export default {
         }
     },
     components: {
+        Ayuda
     },
 };
 </script>

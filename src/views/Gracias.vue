@@ -1,8 +1,10 @@
 <template>
     <div>
         <!-- GRACIAS POR SU COMPRA -->
+
         <div class="min-h-screen bg-gray-100 flex items-center justify-center">
-            <div class="bg-white p-8 rounded shadow-md max-w-md w-full">
+            <div v-if="loader"><span class="loader"></span></div>
+            <div class="bg-white p-8 rounded shadow-md max-w-md w-full" v-if="!loader">
                 <h1 class="text-2xl font-bold mb-4">Información de Pago</h1>
                 <h1 class="text-2xl font-bold">Aura Productora</h1>
                 <p class="mb-4"><strong>Fecha:</strong> Viernes 19 de mayo a las 00:00hs</p>
@@ -46,6 +48,7 @@
                         </a>
                     </div>
                 </div>
+                <Ayuda class="mt-24 bg-gray-300 p-4 rounded"></Ayuda>
 
                 <!-- <p class="mb-4"><strong>Nombre de la fiesta:</strong> Aura Productora</p> -->
 
@@ -60,6 +63,7 @@
     </div>
 </template>
 <script>
+import Ayuda from '@/components/Ayuda.vue'
 import axios from 'axios'
 export default {
     data() {
@@ -69,22 +73,31 @@ export default {
             products: [],
             total: 0,
             compra: {},
-            linkEntradas: {}
+            linkEntradas: {},
+            loader: false
         }
     },
     async mounted() {
-        this.compra = await axios.get(`https://apiauramanager.alguientiene.com/payments/${this.id}`);
 
-        this.linkEntradas = await axios.get(`https://apiauramanager.alguientiene.com/link-entradas/${this.id}`)
-        this.linkEntradas = this.linkEntradas.data.linkEntradas
+        this.loader = true
+        axios.get(`https://apiauramanager.alguientiene.com/payments/${this.id}`).then((response) => {
+            this.compra = response.data
 
-        console.log(this.linkEntradas.data)
+            axios.get(`https://apiauramanager.alguientiene.com/link-entradas/${this.id}`).then((response) => {
+                this.linkEntradas = response.data.linkEntradas
+                this.loader = false
+                console.log(this.linkEntradas)
+            }).catch((error) => {
+                console.log(error)
+            })
+        }).catch((error) => {
+            console.log(error)
+        })
 
-        // this.compra = await axios.get(`https://apiauramanager.alguientiene.com/link-entradas/${this.id}`)
-        // this.compra = await axios.get(`http://192.168.1.8:5050/link-entradas/646325afef88831bf2e0b749`)
-        console.log(this.compra.data)
-        this.compra = this.compra.data
 
     },
+    components: {
+        Ayuda
+    }
 }
 </script>
