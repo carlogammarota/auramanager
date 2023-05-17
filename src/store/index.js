@@ -19,7 +19,14 @@ export default new Vuex.Store({
       return state.token_string;
     },
     getUser: state => {
-      return state.user;
+      
+      // return state.user.permissions[0];
+      if(state.user.permissions){
+        return state.user.permissions[0];
+      } else {
+        return null;
+      }
+
     },
     getRole: state => {
       return state.user.role;

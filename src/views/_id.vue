@@ -284,11 +284,8 @@ export default {
     },
     computed: {
         getRole() {
-            if (this.$store.getters.getUser) {
-                return this.$store.getters.getUser.permissions[0]
-            } else {
-                return false
-            }
+            return this.$store.getters.getUser
+
 
         },
     },
