@@ -34,6 +34,11 @@ const routes = [
     name: "_id",
     component: _id,
   },
+  // {
+  //   path: "/barra/:id",
+  //   name: "_id",
+  //   component: _id,
+  // },
   {
     path: "/gracias/:id",
     name: "gracias",

@@ -1,12 +1,14 @@
 <template>
     <div>
         <!-- Modal overlay -->
+        {{ getRole }}
+        <div v-if="loader"><span class="loader"></span></div>
         <div class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center" v-if="modalconsumicion">
             <!-- Modal container -->
             <div class="bg-white rounded-lg p-4 mx-4">
                 <!-- Modal content -->
 
-                <div class="text-lg my-4">Entregar consumicion ?</div>
+                <div class="text-lg my-4">¿ Entregar Consumicion ?</div>
                 <!-- Botones del modal -->
                 <div class="flex justify-end botones">
                     <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg mr-2"
@@ -21,12 +23,14 @@
             <!-- Modal container -->
             <div class="bg-white rounded-lg p-4 mx-4">
                 <!-- Modal content -->
-                <input type="number" v-model="dni"
+                <!-- <h3 class="mb-2">Ingrese 3 ultimos numeros dni</h3> -->
+                <!-- <input type="number" v-model="dni"
                     class="w-24 p-2 text-center border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 documento"
-                    max="999">
+                    max="999"> -->
 
-                <div class="text-lg my-4">Confirmar Ingreso ?</div>
+                <div class="text-lg my-4">¿ Confirmar Ingreso ?</div>
                 <!-- Botones del modal -->
+
                 <div class="flex justify-end botones">
                     <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg mr-2"
                         @click="cancelar()">Cancelar</button>
@@ -36,8 +40,8 @@
             </div>
         </div>
         <!-- {{ entrada }}  -->
-        <div v-if="!entrada._id" class="mx-4">
-            <h1 class="text-red-400 text-2xl">EL TICKET NO EXISTE</h1>
+        <div v-if="!entrada._id && !loader" class="mx-4">
+            <h1 class="text-red-400 text-2xl py-24">EL TICKET NO EXISTE</h1>
 
             <h1 @click="scaner = true" v-if="!scaner"
                 class="text-3xl my-8 bg-base-400 p-2 border-2 border-black cursor-pointer">Escanear QR</h1>
@@ -51,7 +55,7 @@
 
 
 
-        <div class="mx-2 mb-24" v-if="entrada._id">
+        <div class="mx-2 mb-24 mt-12" v-if="entrada._id">
             <h1 class="text-4xl">TICKET</h1>
 
             <div class="max-w-md w-full h-full z-10 bg-purple-900 rounded-3xl m-auto">
@@ -113,7 +117,9 @@
                                             v-if="entrada.estado == 'no-ingreso' && !loader"> AUN NO INGRESO</h2>
 
                                         <div v-if="loader"><span class="loader"></span></div>
-                                        <button @click="confirmarIngreso()" v-if="entrada.estado == 'no-ingreso' && !loader"
+                                        <button
+                                            v-if="getRole == 'entrada' || getRole == 'admin' && entrada.estado == 'no-ingreso' && !loader"
+                                            @click="confirmarIngreso()"
                                             class="uppercase bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
                                             Confirmar Ingreso
                                         </button>
@@ -140,7 +146,8 @@
                                         </h2>
 
                                         <div v-if="loaderconsumicion"><span class="loader"></span></div>
-                                        <button v-if="entrada.consumicion && !loaderconsumicion"
+                                        <button
+                                            v-if="getRole == 'barra' || getRole == 'admin' && entrada.consumicion && !loaderconsumicion"
                                             @click="Entregarconsumicion()"
                                             class="uppercase bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
                                             Entregar Consumición
@@ -217,31 +224,31 @@ export default {
 
             //y si el dni es mayor a 
 
-            if (dni && dniMayor) {
-                this.modal = false;
-                this.loader = true;
-                axios.patch('https://apiauramanager.alguientiene.com/entradas/' + this.$route.params.id, {
-                    // axios.patch('http://192.168.1.8:5050/entradas/' + this.$route.params.id, {
-                    estado: 'ingreso',
-                    dni: this.dni
-                }, {
-                    headers: { 'Authorization': 'Bearer ' + this.token }
-                }).then(response => {
-                    const sound = new Audio(require('@/assets/ingreso.mp3'))
-                    sound.play()
-                    this.entrada = response.data
-                    this.loader = false
+            // if (dni && dniMayor) {
+            this.modal = false;
+            this.loader = true;
+            axios.patch('https://apiauramanager.alguientiene.com/entradas/' + this.$route.params.id, {
+                // axios.patch('http://192.168.1.8:5050/entradas/' + this.$route.params.id, {
+                estado: 'ingreso',
+                // dni: ''
+            }, {
+                headers: { 'Authorization': 'Bearer ' + this.token }
+            }).then(response => {
+                const sound = new Audio(require('@/assets/ingreso.mp3'))
+                sound.play()
+                this.entrada = response.data
+                this.loader = false
 
+            })
+                .catch(error => {
+                    console.log(error);
+                    this.loader = false;
                 })
-                    .catch(error => {
-                        console.log(error);
-                        this.loader = false;
-                    })
-                this.modal = false
-            } else {
-                this.loader = false;
-                alert('Ingrese un DNI valido')
-            }
+            this.modal = false
+            // } else {
+            //     this.loader = false;
+            //     alert('Ingrese un DNI valido')
+            // }
 
 
 
@@ -254,23 +261,32 @@ export default {
         },
 
         getEntrada() {
+            this.loader = true
             axios.get('https://apiauramanager.alguientiene.com/entradas/' + this.$route.params.id,
                 {
                     headers: { 'Authorization': 'Bearer ' + this.token }
                 })
                 .then(response => {
+                    this.loader = false
                     this.entrada = response.data
                 })
                 .catch(error => {
+                    this.loader = false
                     console.log(error)
                 })
         }
     },
     mounted() {
+
         this.getEntrada()
         // this.getEntrada()
         console.log('ruta', this.$route.params.id)
-    }
+    },
+    computed: {
+        getRole() {
+            return this.$store.getters.getUser.permissions[0]
+        },
+    },
 }
 </script>
 <style>

@@ -2,11 +2,21 @@
     <div>
         <p class="error">{{ error }}</p>
         <qrcode-capture></qrcode-capture>
-    
+
         <!-- <p class="decode-result">Last result: <b>{{ result }}</b></p> -->
+        <!-- boton encender flash -->
+        <div class="w-full m-auto d-block my-4">
+            <button class="bg-blue-200 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="torchActive = true"
+                v-if="!torchActive">Flash On</button>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                @click="torchActive = false" v-if="torchActive">Flash Off</button>
+        </div>
+        <br>
         <p class="decode-result">Escanea el QR del la Entrada </p>
-    
-        <qrcode-stream @decode="onDecode" @init="onInit" />
+
+
+
+        <qrcode-stream @decode="onDecode" :torch="torchActive" @init="onInit" />
     </div>
 </template>
 
@@ -20,7 +30,8 @@ export default {
     data() {
         return {
             result: '',
-            error: ''
+            error: '',
+            torchActive: false,
         }
     },
 
@@ -31,6 +42,7 @@ export default {
 
         async onInit(promise) {
             try {
+
                 await promise
             } catch (error) {
                 if (error.name === 'NotAllowedError') {
@@ -55,7 +67,7 @@ export default {
 
     },
     watch: {
-        result: function(val) {
+        result: function (val) {
             console.log('nuevo resultado!', val)
             const sound = new Audio(require('@/assets/bep.mp3'))
             sound.play()
@@ -68,6 +80,17 @@ export default {
 </script>
 
 <style scoped>
+button {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}
+
 .error {
     font-weight: bold;
     color: red;
