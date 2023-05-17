@@ -57,7 +57,12 @@ export default {
       return this.$store.getters.getToken
     },
     getRole() {
-      return this.$store.getters.getUser.permissions[0]
+      if (this.$store.getters.getUser) {
+        return this.$store.getters.getUser.permissions[0]
+      } else {
+        return false
+      }
+
     },
   }
 }

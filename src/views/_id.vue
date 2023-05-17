@@ -284,7 +284,12 @@ export default {
     },
     computed: {
         getRole() {
-            return this.$store.getters.getUser.permissions[0]
+            if (this.$store.getters.getUser) {
+                return this.$store.getters.getUser.permissions[0]
+            } else {
+                return false
+            }
+
         },
     },
 }
