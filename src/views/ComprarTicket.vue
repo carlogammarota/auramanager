@@ -11,11 +11,17 @@
 
                 <h1 class="text-2xl font-bold">Aura Productora</h1>
                 <p class="mb-4"> Viernes 19 de Mayo 00:00hs</p>
-                <p class="text-2xl">Valpisa</p>
+                <p class="text-2xl font-bold">Valpisa</p>
                 <br class=""> Diag. Buenos Aires 102, <br> Capilla del Monte, Córdoba</p>
 
                 <!-- <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0"> -->
+                
                 <div class="my-8">
+                    <div class="my-8">
+                    <h1 class="text-2xl">PRECIO</h1>
+                    <h1 class="font-bold text-2xl">$1000</h1>
+                    <h1 class="mt-2">Ticket +1 Consumición</h1>
+                    </div>
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">
                         Cantidad de Tickets
                     </label>
@@ -32,7 +38,7 @@
                         id="username" type="email" placeholder="tuemail@gmail.com">
                 </div>
                 <!-- </div> -->
-                <p>Ticket con +1 Consumición</p>
+                <!-- <p>Ticket con +1 Consumición</p> -->
                 <img src="@/assets/mercadopago.webp" class=" mx-auto my-8" style="width:100px !important;"></img>
                 <div class="mt-8 pb-4 w-full">
 
@@ -48,7 +54,7 @@
         <div v-if="!ventaDeEntradas">
             <!-- generar en tailwindcss un mensaje que diga que no hay entradas disponibles -->
             <div class="h-screen m-auto mt-24">
-                <p class="text-2xl font-bold ">No hay entradas disponibles</p>
+                <p class="text-2xl font-bold ">La venta de entradas no esta disponible</p>
             </div>
         </div>
     </div>
