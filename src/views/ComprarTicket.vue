@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="flex justify-center items-center h-screen" v-if="ventaDeEntradas">
+        <div class="flex justify-center items-center" v-if="ventaDeEntradas">
             <div v-if="loader"><span class="loader"></span></div>
             <div v-if="!loader" class="bg-blue-100 p-4 rounded ">
 
