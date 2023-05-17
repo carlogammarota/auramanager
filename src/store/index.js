@@ -11,7 +11,7 @@ export default new Vuex.Store({
     user: {
       permissions: ["otro"]
     },
-    role: null,
+    role: 'otro',
     
   },
   getters: {
@@ -23,12 +23,12 @@ export default new Vuex.Store({
     },
     getUser: state => {
       
-      // return state.user.permissions[0];
-      if(state.user.permissions){
-        return state.user.permissions[0];
-      } else {
-        return null;
-      }
+      return state.user.permissions[0];
+      // if(state.user.permissions){
+      //   return state.user.permissions[0];
+      // } else {
+      //   return null;
+      // }
 
     },
     getRole: state => {
