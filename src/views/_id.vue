@@ -2,7 +2,7 @@
     <div>
         <!-- Modal overlay -->
         <!-- {{ getRole }} -->
-        <div v-if="loader"><span class="loader"></span></div>
+        <div v-if="loader" class="h-screen flex items-center justify-center"><span class="loader"></span></div>
         <div class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center" v-if="modalconsumicion">
             <!-- Modal container -->
             <div class="bg-white rounded-lg p-4 mx-4">
@@ -40,23 +40,19 @@
             </div>
         </div>
         <!-- {{ entrada }}  -->
-        <div v-if="!entrada._id && !loader" class="mx-4">
-            <h1 class="text-red-400 text-2xl py-24">EL TICKET NO EXISTE</h1>
-
-            <h1 @click="scaner = true" v-if="!scaner"
-                class="text-3xl my-8 bg-base-400 p-2 border-2 border-black cursor-pointer">Escanear QR</h1>
-            <!-- <button @click="scanQR">Escanear QR</button> -->
-            <QrScaner v-if="scaner" />
-            <h1 @click="scaner = false" v-if="scaner"
-                class="text-2xl my-4 bg-base-400 p-2 border-2 border-black cursor-pointer">Cerrar Scaner</h1>
-
-
+        <div class="flex items-center justify-center h-full" v-if="!entrada._id && !loader">
+            <div class="d-block">
+                <i class="fas fa-exclamation-circle text-red-500 mr-2 te" style="font-size: 50px;"></i>
+            </div>
+            <p class="text-center text-2xl">El Ticket no existe</p>
         </div>
 
 
 
+
+
         <div class="mx-2 mb-24 mt-12" v-if="entrada._id">
-            <h1 class="text-4xl">TICKET</h1>
+            <!-- <h1 class="text-4xl">TICKET</h1> -->
 
             <div class="max-w-md w-full h-full z-10 bg-purple-900 rounded-3xl m-auto">
                 <div class="flex flex-col mt-4">
@@ -83,16 +79,16 @@
                                     <!-- {{ entrada }} -->
                                     <!-- <h1 class="text-4xl text-green-600" v-if="entrada.consumicion">+1 consumicion</h1> -->
                                     <h1 class="text-4xl text-red-600 line-through" v-if="!entrada.consumicion">+1
-                                        C
+                                        Consumicion
                                     </h1>
                                 </div>
                                 <div class=" items-center justify-between mt-4">
                                     <div class=" items-center text-center  my-1">
-                                        <h2 class="font-medium">Aura Productora Ticket</h2>
+                                        <h2 class="font-medium text-1xl">Aura Productora Ticket</h2>
                                     </div>
 
                                 </div>
-                                <div class="ml-auto text-blue-800">{{ entrada._id }}</div>
+                                <!-- <div class="ml-auto text-blue-800">{{ entrada._id }}</div> -->
                                 <!-- //mostrar dni -->
                                 <div v-if="entrada.dni">
                                     <p class="mt-8 text-1xl">Ultimos 3 numeros</p>

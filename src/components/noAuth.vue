@@ -20,7 +20,7 @@ export default {
     name: "NoAuth",
     computed: {
         getToken() {
-            return this.$store.getters.getToken
+            return this.$store.getters.getToken;
         }
     }
 }

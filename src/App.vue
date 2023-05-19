@@ -3,6 +3,30 @@
     <!-- {{ getToken }} -->
     <!-- {{ getRole }} -->
     <nav class="bg-purple-500" v-if="getToken">
+      <div class="container mx-auto px-4 flex items-center justify-between">
+        <h1 class="text-white font-bold text-lg ">Aura Productora</h1>
+        <div class="flex space-x-4">
+          <h2 class="text-white font-semibold hidden md:block" v-if="getRole === 'entrada'">Entrada</h2>
+          <h2 class="text-white font-semibold hidden md:block" v-if="getRole === 'admin'">Admin</h2>
+          <h2 class="text-white font-semibold hidden md:block" v-if="getRole === 'barra'">Barra</h2>
+          <router-link v-if="getRole === 'entrada' || getRole === 'admin'" to="/"
+            class="bg-white text-purple-500 px-4 py-2 rounded-lg">
+            <i class="fas fa-qrcode"></i> Entrada
+          </router-link>
+          <router-link v-if="getRole === 'barra' || getRole === 'admin'" to="/barra"
+            class="bg-white text-purple-500 px-4 py-2 rounded-lg">
+            <i class="fas fa-qrcode"></i> Entrada
+          </router-link>
+          <button @click="$store.dispatch('logout')" class="bg-white text-purple-500 px-4 py-2 rounded-lg">
+
+            <i class="fas fa-sign-out-alt"></i> Salir
+          </button>
+        </div>
+      </div>
+    </nav>
+
+
+    <!-- <nav class="bg-purple-500" v-if="getToken">
       <div class="d-block mt-4">
         <h1 class="text-2xl font-bold text-white ">AURA PRODUCTORA</h1>
         <p class="bg-green-500 p-2 rounded text-black" v-if="getRole === 'admin'">ADMIN</p>
@@ -12,28 +36,26 @@
       </div>
       <div class="mt-4">
 
-
         <router-link v-if="getRole === 'entrada' || getRole === 'admin'" to="/"
           class="uppercase bg-white hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">QR
           ENTRADA</router-link>
         <router-link v-if="getRole === 'barra' || getRole === 'admin'" to="/barra"
           class="ml-4 uppercase bg-white hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">QR BARRA</router-link>
-        <!-- boton salir -->
         <button class="ml-4 uppercase bg-white hover:bg-blue-700 text-black font-bold py-2 px-4 rounded"
           @click="$store.dispatch('logout')">Salir</button>
 
       </div>
-    </nav>
+    </nav> -->
     <router-view class="h-screen" />
     <footer class="bg-purple-900 py-4" v-if="getToken">
-      <div class="container mx-auto px-4">
+      <div class="container mx-auto px-4 text-center">
         <div class="flex justify-between items-center">
           <p class="text-gray-300">&copy; 2023 Aura Producciones. Todos los derechos reservados.</p>
-          <ul class="flex space-x-4">
+          <!-- <ul class="flex space-x-4">
             <li><a href="#"><i class="fab fa-facebook-f text-gray-300"></i></a></li>
             <li><a href="#"><i class="fab fa-twitter text-gray-300"></i></a></li>
             <li><a href="#"><i class="fab fa-instagram text-gray-300"></i></a></li>
-          </ul>
+          </ul> -->
         </div>
       </div>
     </footer>
@@ -83,7 +105,8 @@ nav a {
 }
 
 nav a.router-link-exact-active {
-  color: black;
-  background-color: rgb(33, 201, 33) !important;
+  color: white;
+  background-color: rgb(207, 77, 255) !important;
+  border: solid 1px white;
 }
 </style>
