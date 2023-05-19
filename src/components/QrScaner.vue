@@ -5,8 +5,8 @@
 
         <!-- <p class="decode-result">Last result: <b>{{ result }}</b></p> -->
         <!-- boton encender flash -->
-        <div class="w-full m-auto d-block my-4">
-            <button class="bg-blue-200 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-28"
+        <div class="w-full m-auto d-block my-4 relative">
+            <button class="bg-blue-200 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-48"
                 @click="torchActive = true" v-if="!torchActive">Flash On</button>
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-28"
                 @click="torchActive = false" v-if="torchActive">Flash Off</button>

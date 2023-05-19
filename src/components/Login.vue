@@ -23,7 +23,7 @@
 
                 <form class="bg-white" onsubmit="event.preventDefault()">
 
-                    <h1 class="text-gray-800 font-bold text-2xl mb-1">Admin</h1>
+                    <!-- <h1 class="text-gray-800 font-bold text-2xl mb-1">Admin</h1> -->
 
                     <img src="@/assets/logo.png" class=" mx-auto mb-4" style="width:300px !important;"></img>
 
