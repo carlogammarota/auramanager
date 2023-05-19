@@ -6,17 +6,16 @@
       <div class="container mx-auto px-4 flex items-center justify-between">
         <h1 class="text-white font-bold text-lg ">Aura Productora</h1>
         <div class="flex space-x-4">
-          <h2 class="text-white font-semibold hidden md:block" v-if="getRole === 'entrada'">Entrada</h2>
+          <!-- <h2 class="text-white font-semibold hidden md:block" v-if="getRole === 'entrada'">Entrada</h2>
           <h2 class="text-white font-semibold hidden md:block" v-if="getRole === 'admin'">Admin</h2>
-          <h2 class="text-white font-semibold hidden md:block" v-if="getRole === 'barra'">Barra</h2>
-          <router-link v-if="getRole === 'entrada' || getRole === 'admin'" to="/"
-            class="bg-white text-purple-500 px-4 py-2 rounded-lg">
-            <i class="fas fa-qrcode"></i> Entrada
+          <h2 class="text-white font-semibold hidden md:block" v-if="getRole === 'barra'">Barra</h2> -->
+          <router-link to="/" class="bg-white text-purple-500 px-4 py-2 rounded-lg">
+            <i class="fas fa-qrcode"></i> Escanear
           </router-link>
-          <router-link v-if="getRole === 'barra' || getRole === 'admin'" to="/barra"
+          <!-- <router-link v-if="getRole === 'barra' || getRole === 'admin'" to="/barra"
             class="bg-white text-purple-500 px-4 py-2 rounded-lg">
-            <i class="fas fa-qrcode"></i> Entrada
-          </router-link>
+            <i class="fas fa-qrcode"></i> Barra
+          </router-link> -->
           <button @click="$store.dispatch('logout')" class="bg-white text-purple-500 px-4 py-2 rounded-lg">
 
             <i class="fas fa-sign-out-alt"></i> Salir

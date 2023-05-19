@@ -49,9 +49,10 @@
 
 
 
+        <!-- <i class="fas fa-ticket-alt text-4xl"></i> -->
 
 
-        <div class="mx-2 mb-24 mt-12" v-if="entrada._id">
+        <div class="mx-2" v-if="entrada._id">
             <!-- <h1 class="text-4xl">TICKET</h1> -->
 
             <div class="max-w-md w-full h-full z-10 bg-purple-900 rounded-3xl m-auto">
@@ -78,9 +79,9 @@
 
                                     <!-- {{ entrada }} -->
                                     <!-- <h1 class="text-4xl text-green-600" v-if="entrada.consumicion">+1 consumicion</h1> -->
-                                    <h1 class="text-4xl text-red-600 line-through" v-if="!entrada.consumicion">+1
+                                    <!-- <h1 class="text-4xl text-red-600 line-through" v-if="!entrada.consumicion">+1
                                         Consumicion
-                                    </h1>
+                                    </h1> -->
                                 </div>
                                 <div class=" items-center justify-between mt-4">
                                     <div class=" items-center text-center  my-1">
@@ -135,7 +136,7 @@
                                     <div class="flex flex-col">
                                         <!--  -->
                                         <h2 v-if="!entrada.consumicion"
-                                            class="text-3xl text-red-600 uppercase mb-2 py-2 px-4">Consumición ENTREGADA
+                                            class="text-3xl text-red-600 uppercase mb-2 py-2 px-4">Sin Consumición
                                         </h2>
                                         <h2 v-if="entrada.consumicion && !loaderconsumicion"
                                             class=" text-3xl text-green-600 uppercase mb-2 py-2 px-4">+1 Consumición
