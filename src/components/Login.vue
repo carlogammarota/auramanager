@@ -83,7 +83,7 @@ export default {
     data() {
         return {
             email: 'entrada@aura.com',
-            password: '123456789',
+            password: '',
             error: '',
             loading: false
         }
