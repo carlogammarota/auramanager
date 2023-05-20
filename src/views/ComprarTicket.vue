@@ -24,7 +24,7 @@
                         <div class="my-8">
                             <h1 class="text-2xl">PRECIO</h1>
                             <h1 class="font-bold text-2xl">$1000</h1>
-                            <h1 class="mt-2">Ticket +1 Consumición</h1>
+                            <h1 class="mt-2">Ticket</h1>
                         </div>
 
                     </div>
