@@ -16,14 +16,14 @@
                     <!-- <h1 class="text-2xl font-bold">Aura Productora</h1> -->
                     <h1 class="text-2xl">PRESENTA</h1>
                     <img src="@/assets/flayer.jpeg" class=" mx-auto my-8" style="width:300px !important;"></img>
-                    <p class="mb-4"> Viernes 19 de Mayo 00:00hs</p>
-                    <p class="text-2xl font-bold mb-4">Valpisa</p>
+                    <p class="mb-4"> Lunes 1 de Enero 01:00hs am</p>
+                    <p class="text-2xl font-bold mb-4">CLUB BALUMBA</p>
                     <Mapa />
-                    <br class=""> Diag. Buenos Aires 102, <br> Capilla del Monte, Córdoba</p>
+                    <br class=""> Pueyrredón 973, X5184 <br> Capilla del Monte, Córdoba</p>
                     <div class="my-8">
                         <div class="my-8">
                             <h1 class="text-2xl">PRECIO</h1>
-                            <h1 class="font-bold text-2xl">$1000</h1>
+                            <h1 class="font-bold text-2xl">$2000</h1>
                             <h1 class="mt-2">Ticket</h1>
                         </div>
 
@@ -70,6 +70,28 @@
                         <input v-model="email"
                             class="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-center"
                             id="username" type="email" placeholder="tuemail@gmail.com">
+
+                            <!-- nombre y appelido inputs -->
+
+                            <div  v-for="(item, index) in cantidadDeTickets" :key="index">
+                             <label class="block text-gray-700 text-sm font-bold mb-2 mt-2" for="username">
+                            Nombre y Apellido (Persona {{index + 1}})
+                            </label>
+                            <input v-model="participantes[index]"
+                                class="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-center"
+                                id="fullname" type="text" placeholder="Jorge Guevara">
+                            </div>
+
+                            <!-- {{participantes}} -->
+
+                            
+
+
+
+                            
+
+                        
+                            
                     </div>
                     <div class="px-12 w-full">
                         <button class="buy-button bg-purple-500 mb-24 px-4 d-block w-full" @click="generarLink()">
@@ -95,157 +117,168 @@ import Mapa from "@/components/Mapa.vue";
 import axios from "axios";
 import Ayuda from "@/components/Ayuda.vue";
 export default {
-    name: "venta-de-entradas",
-    data() {
-        return {
-            ventaDeEntradas: true,
-            linkDePago: '',
-            loader: false,
-            cantidadDeTickets: 1,
-            email: '',
-            total: 1000
-        };
-    },
-    async mounted() {
+	name: "venta-de-entradas",
+	data() {
+		return {
+			ventaDeEntradas: true,
+			linkDePago: "",
+			loader: false,
+			cantidadDeTickets: 1,
+			email: "",
+			total: 2000,
+            participantes: [],
+		};
+	},
+	async mounted() {},
+	methods: {
+		sumar() {
+			this.cantidadDeTickets++;
+		},
+		restar() {
+			if (this.cantidadDeTickets > 1) {
+				this.cantidadDeTickets--;
+			}
+		},
+		async generarLink() {
+			// console.log('generarLink');
+			//comprobar si es un email valido
+			// console.log('this.email', this.email);
+			let comprobacionEmail = this.email.includes("@");
 
-    },
-    methods: {
-        sumar() {
-            this.cantidadDeTickets++;
-        },
-        restar() {
-            if (this.cantidadDeTickets > 1) {
-                this.cantidadDeTickets--;
-            }
-        },
-        async generarLink() {
+			//si cantidad de tickets es mayor a 0 y email no es null
 
-            // console.log('generarLink');
-            //comprobar si es un email valido
-            // console.log('this.email', this.email);
-            let comprobacionEmail = this.email.includes('@');
+			if (this.cantidadDeTickets > 0 && comprobacionEmail) {
+				this.loader = true;
 
+          
 
-            //si cantidad de tickets es mayor a 0 y email no es null
+				//produccion
+				// axios.post('https://api.aura-producciones.com/generar-link', {
+				//test
+				axios
+					.post("http://localhost:5050/generar-link", {
+						cantidad: this.cantidadDeTickets,
+						email: this.email,
 
-            if (this.cantidadDeTickets > 0 && comprobacionEmail) {
-                this.loader = true;
-                axios.post('https://apiauramanager.alguientiene.com/generar-link', {
-                    "cantidad": this.cantidadDeTickets,
-                    "email": this.email
-                }).then((response) => {
-                    this.loader = false;
-                    console.log('response', response.data);
-                    this.linkDePago = response.data;
-                    // window.open(this.linkDePago, '_blank');
-                    //redirigir en la misma pagina
-                    window.location.href = this.linkDePago;
-                }, (error) => {
-                    console.log('error', error);
-                    this.loader = false;
-                });
-                return;
-            }
-            if (this.cantidadDeTickets == 0) {
-                alert('Debe ingresar una cantidad de tickets');
-                return;
-            }
-            if (!comprobacionEmail) {
-                alert('Debe ingresar un email valido');
-                return;
-            }
-            if (this.email == '') {
-                alert('Debe ingresar un email');
-                return;
-            }
-
-            // if (this.email == '') {
-            //     alert('Debe ingresar un email');
-            //     return;
-            // }
+						//hay que cambiar esto a un array de objetos
+						participantes: this.participantes,
+					})
+					.then(
+						(response) => {
+							this.loader = false;
+							console.log("response", response.data);
+							this.linkDePago = response.data;
+							// window.open(this.linkDePago, '_blank');
+							//redirigir en la misma pagina
+							window.location.href = this.linkDePago;
+						},
+						(error) => {
+							console.log("error", error);
+							this.loader = false;
+						}
+					);
+				return;
+			}
+			if (this.cantidadDeTickets == 0) {
+				alert("Debe ingresar una cantidad de tickets");
+				return;
+			}
+			if (!comprobacionEmail) {
+				alert("Debe ingresar un email valido");
+				return;
+			}
+			if (this.email == "") {
+				alert("Debe ingresar un email");
+				return;
+			}
 
 
-            // console.log('linkDePago', linkDePago);
-        }
-    },
-    watch: {
-        cantidadDeTickets: function (val) {
-            this.total = val * 1000;
-        }
-    },
-    components: {
-        Ayuda,
-        Mapa
-    },
+			// if (this.email == '') {
+			//     alert('Debe ingresar un email');
+			//     return;
+			// }
+
+			// console.log('linkDePago', linkDePago);
+		},
+	},
+	watch: {
+		cantidadDeTickets: function (val) {
+			this.total = val * 2000;
+		},
+	},
+	components: {
+		Ayuda,
+		Mapa,
+	},
 };
 </script>
 <style>
 body {
-    font-family: Arial, sans-serif;
-    font-size: 18px;
+	font-family: Arial, sans-serif;
+	font-size: 18px;
 }
 
 .checkout-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .quantity-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
+	display: flex;
+	align-items: center;
+	margin-bottom: 1rem;
 }
 
 .quantity-text {
-    margin-right: 0.5rem;
+	margin-right: 0.5rem;
 }
 
 .quantity-button {
-    color: #888;
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
+	color: #888;
+	background: none;
+	border: none;
+	font-size: 24px;
+	cursor: pointer;
 }
 
 .total-text {
-    margin-bottom: 1rem;
+	margin-bottom: 1rem;
 }
 
 .buy-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.5rem 1rem;
-    background-color: #3B82F6;
-    color: #fff;
-    border-radius: 0.25rem;
-    cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.5rem 1rem;
+	background-color: #3b82f6;
+	color: #fff;
+	border-radius: 0.25rem;
+	cursor: pointer;
 }
 
 .buy-button-icon {
-    margin-right: 0.5rem;
+	margin-right: 0.5rem;
 }
 
 .loader {
-    width: 48px;
-    height: 48px;
-    border: 5px solid #FFF;
-    border-bottom-color: #FF3D00;
-    border-radius: 50%;
-    display: inline-block;
-    box-sizing: border-box;
-    animation: rotation 1s linear infinite;
+	width: 48px;
+	height: 48px;
+	border: 5px solid #fff;
+	border-bottom-color: #ff3d00;
+	border-radius: 50%;
+	display: inline-block;
+	box-sizing: border-box;
+	animation: rotation 1s linear infinite;
 }
 
 @keyframes rotation {
-    0% {
-        transform: rotate(0deg);
-    }
+	0% {
+		transform: rotate(0deg);
+	}
 
-    100% {
-        transform: rotate(360deg);
-    }
+	100% {
+		transform: rotate(360deg);
+	}
 }
 </style>

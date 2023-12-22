@@ -56,7 +56,7 @@
             <!-- <h1 class="text-4xl">TICKET</h1> -->
 
             <div class="max-w-md w-full h-full z-10 bg-purple-900 rounded-3xl m-auto">
-                <div class="flex flex-col mt-4">
+                <div class="flex flex-col mt-4 mb-12">
                     <div class="bg-white relative drop-shadow-2xl rounded-3xl p-4 m-4" style="background: #f5eef9;">
                         <div class="">
                             <div class=" relative h-32 w-32   sm:mb-0 mb-3 hidden">
@@ -91,6 +91,8 @@
                                 </div>
                                 <!-- <div class="ml-auto text-blue-800">{{ entrada._id }}</div> -->
                                 <!-- //mostrar dni -->
+                                <p>nombre</p>
+                                <p class="text-2xl font-bold">{{entrada.fullname}}</p>
                                 <div v-if="entrada.dni">
                                     <p class="mt-8 text-1xl">Ultimos 3 numeros</p>
                                     <div class="ml-auto text-blue-800 text-3xl mb-2">
@@ -192,7 +194,7 @@ export default {
         confirmarconsumicion() {
             this.modalconsumicion = false;
             this.loaderconsumicion = true;
-            axios.patch('https://apiauramanager.alguientiene.com/entradas/' + this.$route.params.id, {
+            axios.patch('https://api.aura-producciones.com/entradas/' + this.$route.params.id, {
 
                 consumicion: false
             }, {
@@ -224,7 +226,7 @@ export default {
             // if (dni && dniMayor) {
             this.modal = false;
             this.loader = true;
-            axios.patch('https://apiauramanager.alguientiene.com/entradas/' + this.$route.params.id, {
+            axios.patch('https://api.aura-producciones.com/entradas/' + this.$route.params.id, {
                 // axios.patch('http://192.168.1.8:5050/entradas/' + this.$route.params.id, {
                 estado: 'ingreso',
                 // dni: ''
@@ -259,7 +261,7 @@ export default {
 
         getEntrada() {
             this.loader = true
-            axios.get('https://apiauramanager.alguientiene.com/entradas/' + this.$route.params.id,
+            axios.get('https://api.aura-producciones.com/entradas/' + this.$route.params.id,
                 {
                     headers: { 'Authorization': 'Bearer ' + this.token }
                 })

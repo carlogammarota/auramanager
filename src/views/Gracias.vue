@@ -7,7 +7,7 @@
             <div class="bg-white p-8 rounded shadow-md max-w-md w-full" v-if="!loader">
                 <h1 class="text-2xl font-bold mb-4">Información de Pago</h1>
                 <h1 class="text-2xl font-bold">Aura Productora</h1>
-                <p class="mb-4"><strong>Fecha:</strong> Viernes 19 de mayo a las 00:00hs</p>
+                <p class="mb-4"><strong>Fecha:</strong> Lunes 01/01 1:00hs AM</p>
                 <!-- {{ compra.estado }} -->
 
 
@@ -80,10 +80,10 @@ export default {
     async mounted() {
 
         this.loader = true
-        axios.get(`https://apiauramanager.alguientiene.com/payments/${this.id}`).then((response) => {
+        axios.get(`https://api.aura-producciones.com/payments/${this.id}`).then((response) => {
             this.compra = response.data
 
-            axios.get(`https://apiauramanager.alguientiene.com/link-entradas/${this.id}`).then((response) => {
+            axios.get(`https://api.aura-producciones.com/link-entradas/${this.id}`).then((response) => {
                 this.linkEntradas = response.data.linkEntradas
                 this.loader = false
                 console.log(this.linkEntradas)

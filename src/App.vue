@@ -45,7 +45,7 @@
 
       </div>
     </nav> -->
-    <router-view class="h-screen" />
+    <router-view class="" />
     <footer class="bg-purple-900 py-4" v-if="getToken">
       <div class="container mx-auto px-4 text-center">
         <div class="flex justify-between items-center">

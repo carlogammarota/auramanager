@@ -20,13 +20,13 @@ export default {
         const map = new this.mapboxgl.Map({
             container: 'mapa',
             style: 'mapbox://styles/mapbox/streets-v11',
-            center: [-64.5233097, -30.8599891],
+            center: [ -64.52661079805958, -30.86643741243709],
             zoom: 15,
             accessToken: mapboxAccessToken
         })
 
         new this.mapboxgl.Marker()
-            .setLngLat([-64.5233097, -30.8599891])
+            .setLngLat([-64.52661079805958, -30.86643741243709])
             .addTo(map)
             .Popup()
             .setHTML('<h3>Información del marcador</h3><p>Aquí puedes agregar cualquier contenido adicional que desees mostrar.</p>');
