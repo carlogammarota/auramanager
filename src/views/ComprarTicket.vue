@@ -156,7 +156,7 @@ export default {
 				// axios.post('https://api.aura-producciones.com/generar-link', {
 				//test
 				axios
-					.post("http://localhost:5050/generar-link", {
+					.post("https://api.aura-producciones.com/generar-link", {
 						cantidad: this.cantidadDeTickets,
 						email: this.email,
 
