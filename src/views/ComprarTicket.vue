@@ -23,7 +23,7 @@
                     <div class="my-8">
                         <div class="my-8">
                             <h1 class="text-2xl">PRECIO</h1>
-                            <h1 class="font-bold text-2xl">$2000</h1>
+                            <h1 class="font-bold text-2xl">$3000</h1>
                             <h1 class="mt-2">Ticket</h1>
                         </div>
 
@@ -125,7 +125,7 @@ export default {
 			loader: false,
 			cantidadDeTickets: 1,
 			email: "",
-			total: 2000,
+			total: 3000,
             participantes: [],
 		};
 	},
@@ -203,7 +203,7 @@ export default {
 	},
 	watch: {
 		cantidadDeTickets: function (val) {
-			this.total = val * 2000;
+			this.total = val * 3000;
 		},
 	},
 	components: {
