@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import store from "./index";
 import createPersistedState from "vuex-plugin-persistedstate";
+import router from "../store"
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -59,6 +60,8 @@ export default new Vuex.Store({
       state.token_string = "token",
       state.token = false // Only in my setup remove session token
       state.isUserLoggedIn = false // this will trigger the vue-persist-store plugin to set all state to empty on the location relaod
+      router.push("/")
+
 
   },
 

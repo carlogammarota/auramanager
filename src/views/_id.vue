@@ -110,18 +110,21 @@
                                 <div class=" items-center p-5 text-sm mt-4">
                                     <div class="flex flex-col">
                                         <!--  -->
-                                        <h2 class="text-3xl text-red-600 uppercase mb-2 py-2 px-4"
+                                        <h2 class="text-2xl text-red-600 uppercase mb-2 py-2 px-4"
                                             v-if="entrada.estado == 'ingreso' && !loader">YA INGRESO</h2>
-                                        <h2 class="text-3xl text-green-600 uppercase mb-2 py-2 px-4"
+                                        <h2 class="text-2xl text-green-600 uppercase mb-2 py-2 px-4"
                                             v-if="entrada.estado == 'no-ingreso' && !loader"> AUN NO INGRESO</h2>
 
                                         <div v-if="loader"><span class="loader"></span></div>
-                                        <button
+
+                                       <div v-if="entrada.estado != 'ingreso'">
+                                         <button
                                             v-if="getRole == 'entrada' || getRole == 'admin' && entrada.estado == 'no-ingreso' && !loader"
                                             @click="confirmarIngreso()"
                                             class="uppercase bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
                                             Confirmar Ingreso
                                         </button>
+                                       </div>
                                     </div>
                                     <!-- <div class="flex flex-col ml-auto">
                                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -138,10 +141,10 @@
                                     <div class="flex flex-col">
                                         <!--  -->
                                         <h2 v-if="!entrada.consumicion"
-                                            class="text-3xl text-red-600 uppercase mb-2 py-2 px-4">Sin Consumición
+                                            class="text-2xl text-red-600 uppercase mb-2 py-2 px-4">Sin Consumición
                                         </h2>
                                         <h2 v-if="entrada.consumicion && !loaderconsumicion"
-                                            class=" text-3xl text-green-600 uppercase mb-2 py-2 px-4">+1 Consumición
+                                            class=" text-2xl text-green-600 uppercase mb-2 py-2 px-4">+1 Consumición
                                         </h2>
 
                                         <div v-if="loaderconsumicion"><span class="loader"></span></div>
@@ -152,19 +155,29 @@
                                             Entregar Consumición
                                         </button>
                                     </div>
+                                    
                                     <!-- <div class="flex flex-col ml-auto">
                                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                     Button
                                     </button>
 								</div> -->
                                 </div>
-
+                                <!-- Boton "escanear otro ticket" -->
+                               
                             </div>
+                            
                         </div>
                     </div>
                 </div>
+                
             </div>
         </div>
+         <div class="flex justify-center my-8">
+                                    <router-link to="/entrada"
+                                        class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+                                        Escanear otro ticket
+                                    </router-link>
+                                </div>
     </div>
 </template>
 <script>

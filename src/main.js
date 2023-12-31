@@ -4,9 +4,14 @@ import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
 
+import VueFormulate from '@braid/vue-formulate'
+
+
+
+
 import './assets/tailwind.css';
 
-import VueFormulate from '@braid/vue-formulate'
+// import VueFormulate from '@braid/vue-formulate'
 
 import VueCookies from 'vue-cookies';
 
@@ -17,7 +22,7 @@ import VueMapbox from 'vue-mapbox'
 Vue.use(VueMapbox, { mapboxgl: Mapbox })
 Vue.use(VueFormulate)
 Vue.use(VueCookies);
-
+// Vue.use(VueFormulate)
 Vue.config.productionTip = false;
 
 new Vue({
