@@ -1,6 +1,8 @@
 <template>
     <div>
 
+	<p>Se cerro la venta de anticipadas.</p>
+
         <div class="flex justify-center items-center bg-gray-100 py-12" v-if="ventaDeEntradas">
             <div v-if="loader"><span class="loader"></span></div>
             <div v-if="!loader" class=" rounded ">
@@ -120,7 +122,7 @@ export default {
 	name: "venta-de-entradas",
 	data() {
 		return {
-			ventaDeEntradas: true,
+			ventaDeEntradas: false,
 			linkDePago: "",
 			loader: false,
 			cantidadDeTickets: 1,

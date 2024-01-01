@@ -22,7 +22,7 @@
             <i class="fas fa-qrcode mr-2"></i> Entrada
           </router-link> -->
           
-            <router-link to="/entrada" @click="scaner = true" v-if="!scaner" style="background:#221274;"
+            <router-link to="/entrada" style="background:#221274;"
         class="bg-purple-500 hover:bg-purple-700 text-white font-bold px-4 rounded-lg flex items-center space-x-2">
         <i class="fas fa-qrcode text-xl"></i>
         <span class="text-sm">Escanear QR</span>
@@ -31,6 +31,11 @@
         class="bg-purple-500 hover:bg-purple-700 text-white font-bold px-4 rounded-lg flex items-center space-x-2">
         <!-- <i class="fas fa-times-circle text-xl"></i> -->
         <span class="text-sm">Barra</span>
+      </router-link>
+      <router-link to="/entrada" style="background:#221274;"
+        class="bg-purple-500 hover:bg-purple-700 text-white font-bold px-4 rounded-lg flex items-center space-x-2">
+        <!-- <i class="fas fa-times-circle text-xl"></i> -->
+        <span class="text-sm">Entrada</span>
       </router-link>
           
           
@@ -103,9 +108,11 @@ export default {
   data() {
     return {
       token: false,
-      isMenuVisible: false
+      isMenuVisible: false,
+      // scaner
     }
   },
+  
 
   components: {
     Login
