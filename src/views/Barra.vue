@@ -74,7 +74,7 @@
                 #default="{ index }"
               >
                 <FormulateInput
-                  @change="actualizarValor(index)"
+
                   type="select"
                   :options="{
                     'Seleccione una bebida': 'Seleccione una bebida',
@@ -103,7 +103,7 @@
                     4: '4',
                     5: '5',
                   }"
-                  @change="actualizarValor(index)"
+                  
                 />
 
                 <!-- Opcional sin precio -->
