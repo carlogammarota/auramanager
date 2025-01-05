@@ -6,7 +6,7 @@ import Gracias from "../views/Gracias.vue";
 import ComprarTicket from "../views/ComprarTicket.vue";
 import LoginView from "../views/LoginView.vue";
 import Home from "../views/Home.vue";
-// import Login from "../components/Login.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -26,25 +26,15 @@ const routes = [
     component: ComprarTicket,
   },
   {
-    name: "Login",
+    name: "login",
     path: "/login",
     component: LoginView,
   },
-  // {
-  //   name: "login",
-  //   path: "/login",
-  //   component: Login,
-  // },
   {
     path: "/entradas/:id",
     name: "_id",
     component: _id,
   },
-  // {
-  //   path: "/barra/:id",
-  //   name: "_id",
-  //   component: _id,
-  // },
   {
     path: "/gracias/:id",
     name: "gracias",
@@ -53,11 +43,8 @@ const routes = [
   {
     path: "/barra",
     name: "barra",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Barra.vue"),
+      import(/* webpackChunkName: "barra" */ "../views/Barra.vue"),
   },
 ];
 

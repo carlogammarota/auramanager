@@ -80,10 +80,10 @@ export default {
     async mounted() {
 
         this.loader = true
-        axios.get(`https://api.aura-producciones.com/payments/${this.id}`).then((response) => {
+        axios.get(`http://localhost:1020/payments/${this.id}`).then((response) => {
             this.compra = response.data
 
-            axios.get(`https://api.aura-producciones.com/link-entradas/${this.id}`).then((response) => {
+            axios.get(`http://localhost:1020/link-entradas/${this.id}`).then((response) => {
                 this.linkEntradas = response.data.linkEntradas
                 this.loader = false
                 console.log(this.linkEntradas)

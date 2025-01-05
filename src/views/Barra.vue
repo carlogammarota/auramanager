@@ -537,8 +537,8 @@ export default {
 
       axios
         .post(
-          "https://api.aura-producciones.com/ventas-all/",
-          // "https://api.aura-producciones.com/ventas/",
+          "http://localhost:1020/ventas-all/",
+          // "http://localhost:1020/ventas/",
           this.values,
           {
             headers: { Authorization: "Bearer " + this.token },
@@ -559,8 +559,8 @@ export default {
     traerVentas() {
       axios
         .get(
-          "https://api.aura-producciones.com/ventas-all/",
-          // axios.get("https://api.aura-producciones.com/ventas/",
+          "http://localhost:1020/ventas-all/",
+          // axios.get("http://localhost:1020/ventas/",
           {
             headers: { Authorization: "Bearer " + this.token },
           }

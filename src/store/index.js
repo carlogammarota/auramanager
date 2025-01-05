@@ -2,13 +2,14 @@ import Vue from "vue";
 import Vuex from "vuex";
 import store from "./index";
 import createPersistedState from "vuex-plugin-persistedstate";
-import router from "../store"
+import router from '@/router'; // Asegúrate de que el archivo sea correcto
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     token: false,
-    token_string: "token",
+    token_string: "",
     user: {
       permissions: ["otro"]
     },
@@ -57,7 +58,7 @@ export default new Vuex.Store({
      
     // },
     logout: (state) => {
-      state.token_string = "token",
+      state.token_string = "",
       state.token = false // Only in my setup remove session token
       state.isUserLoggedIn = false // this will trigger the vue-persist-store plugin to set all state to empty on the location relaod
       router.push("/")
@@ -79,8 +80,20 @@ export default new Vuex.Store({
     //set user
     async setUser({ commit }, user) {
       commit("setUser", user);
+    },
+    checkToken({ commit }) {
+      console.log("checkToken");
+      const token = store.getters.getTokenString
+      console.log(token);
+      if (token) {
+        commit("setToken", token);
+      } else {
+        //redirect to login
+        
+        router.push('/login');  
+        console.log("no hay token");
+      }
     }
-      
   },
   modules: {},
   plugins: [createPersistedState({

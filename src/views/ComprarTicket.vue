@@ -155,10 +155,10 @@ export default {
           
 
 				//produccion
-				// axios.post('https://api.aura-producciones.com/generar-link', {
+				// axios.post('http://localhost:1020/generar-link', {
 				//test
 				axios
-					.post("https://api.aura-producciones.com/generar-link", {
+					.post("http://localhost:1020/generar-link", {
 						cantidad: this.cantidadDeTickets,
 						email: this.email,
 
