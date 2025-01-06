@@ -89,8 +89,13 @@ export default new Vuex.Store({
         commit("setToken", token);
       } else {
         //redirect to login
+
+        //si la ruta es comprar, no redirigir
         
-        router.push('/login');  
+        if(router.currentRoute.name != 'comprar'){
+          router.push('/login');  
+        }
+        // router.push('/login');  
         console.log("no hay token");
       }
     }

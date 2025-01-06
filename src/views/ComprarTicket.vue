@@ -1,8 +1,23 @@
 <template>
     <div>
 
-	<p>Se cerro la venta de anticipadas.</p>
+	
+		<div class="flex flex-col items-center justify-center bg-gray-100 py-10" v-if="publica">
+    <!-- Contenedor del mensaje con Tailwind -->
+    <div class="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full text-center">
+      <div class="flex justify-center items-center mb-4">
+        <!-- Ícono de FontAwesome -->
+        <i class="fas fa-gift text-4xl text-green-500 mr-4"></i>
+        <h2 class="text-3xl font-semibold text-gray-800">¡Oferta Especial!</h2>
+      </div>
 
+      <p class="text-lg text-gray-600 mb-4">
+        Esta es una oferta especial de la mano de 
+        <span class="font-bold text-blue-500">{{ publica }}</span>
+      </p>
+
+    </div>
+  </div>
         <div class="flex justify-center items-center bg-gray-100 py-12" v-if="ventaDeEntradas">
             <div v-if="loader"><span class="loader"></span></div>
             <div v-if="!loader" class=" rounded ">
@@ -16,9 +31,9 @@
 
 
                     <!-- <h1 class="text-2xl font-bold">Aura Productora</h1> -->
-                    <h1 class="text-2xl">PRESENTA</h1>
-                    <img src="@/assets/flayer.jpeg" class=" mx-auto my-8" style="width:300px !important;"></img>
-                    <p class="mb-4"> Lunes 1 de Enero 01:00hs am</p>
+                    <!-- <h1 class="text-2xl">PRESENTA</h1> -->
+                    <img src="@/assets/flayer.jpg" class=" mx-auto my-4" style="width:300px !important;"></img>
+                    <p class="mb-4"> Sabado 25 de enero desde las 18:00hs</p>
                     <p class="text-2xl font-bold mb-4">CLUB BALUMBA</p>
                     <Mapa />
                     <br class=""> Pueyrredón 973, X5184 <br> Capilla del Monte, Córdoba</p>
@@ -26,7 +41,7 @@
                         <div class="my-8">
                             <h1 class="text-2xl">PRECIO</h1>
                             <h1 class="font-bold text-2xl">$3000</h1>
-                            <h1 class="mt-2">Ticket</h1>
+                            <h1 class="mt-2">x Ticket</h1>
                         </div>
 
                     </div>
@@ -107,6 +122,7 @@
         </div>
 
         <div v-if="!ventaDeEntradas">
+			<p>Se cerro la venta de anticipadas.</p>
             <!-- generar en tailwindcss un mensaje que diga que no hay entradas disponibles -->
             <div class="h-screen m-auto mt-24">
                 <p class="text-2xl font-bold ">La venta de entradas no esta disponible</p>
@@ -122,16 +138,22 @@ export default {
 	name: "venta-de-entradas",
 	data() {
 		return {
-			ventaDeEntradas: false,
+			ventaDeEntradas: true,
 			linkDePago: "",
 			loader: false,
 			cantidadDeTickets: 1,
 			email: "",
 			total: 3000,
             participantes: [],
+			publica: ''
 		};
 	},
-	async mounted() {},
+	async mounted() {
+		// http://localhost:3322/comprar?publica=charlyg
+		const urlParams = new URLSearchParams(window.location.search);
+		const publica = urlParams.get("publica");
+		this.publica = publica;
+	},
 	methods: {
 		sumar() {
 			this.cantidadDeTickets++;
@@ -164,6 +186,7 @@ export default {
 
 						//hay que cambiar esto a un array de objetos
 						participantes: this.participantes,
+						publica: this.publica,
 					})
 					.then(
 						(response) => {

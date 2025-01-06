@@ -78,7 +78,7 @@
 			<div class="container mx-auto px-4 text-center">
 				<div class="flex justify-between items-center">
 					<p class="text-gray-300">
-						&copy; 2023 Aura Producciones. Todos los derechos
+						&copy; 2024 Aura Producciones. Todos los derechos
 						reservados.
 					</p>
 					<!-- <ul class="flex space-x-4">

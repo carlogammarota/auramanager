@@ -45,9 +45,18 @@
           class="bg-purple-500 hover:bg-purple-700 text-white font-bold px-4 rounded-lg flex items-center space-x-2"
         >
           <i class="fas fa-qrcode text-xl"></i>
-          <span class="text-sm">Escanear QR</span>
+          <span class="text-sm">Administracion Entrada</span>
         </router-link>
         <router-link
+          to="/publicas"
+          style="background: #221274"
+          class="bg-purple-500 hover:bg-purple-700 text-white font-bold px-4 rounded-lg flex items-center space-x-2"
+        >
+          <i class="fas fa-person text-xl"></i>
+          <span class="text-sm">Publicas</span>
+        </router-link>
+        <router-link
+        v-if="false"
           to="/barra"
           style="background: #221274"
           class="bg-purple-500 hover:bg-purple-700 text-white font-bold px-4 rounded-lg flex items-center space-x-2"
@@ -55,21 +64,20 @@
           <!-- <i class="fas fa-times-circle text-xl"></i> -->
           <span class="text-sm">Barra</span>
         </router-link>
-        <router-link
+        <!-- <router-link
           to="/entrada"
           style="background: #221274"
           class="bg-purple-500 hover:bg-purple-700 text-white font-bold px-4 rounded-lg flex items-center space-x-2"
         >
-          <!-- <i class="fas fa-times-circle text-xl"></i> -->
           <span class="text-sm">Entrada</span>
-        </router-link>
+        </router-link> -->
 
         <!-- <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-200 md:bg-transparent md:text-gray-700 md:p-0">Productos</a> -->
         <button
           @click="$store.dispatch('logout')"
           class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-200 md:bg-transparent md:text-gray-700 md:p-0"
         >
-          <i class="fas fa-sign-out-alt mr-2"></i> Salir
+          <i class="fas fa-sign-out-alt mr-2"></i> <span class="">Salir</span>
         </button>
         <!-- <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-200 md:bg-transparent md:text-gray-700 md:p-0">Contacto</a> -->
       </nav>
@@ -121,7 +129,7 @@
       <!-- Sección de contenido en dispositivos móviles -->
       <div class="flex flex-col sm:flex-row justify-between items-center">
         <p class="text-center sm:text-left text-sm sm:text-base mb-4 sm:mb-0">
-          &copy; 2023
+          &copy; 2024
           <a
             href="http://aura-producciones.com/"
             class="hover:text-white"
@@ -162,7 +170,7 @@ export default {
     };
   },
   mounted() {
-  this.$store.dispatch("checkToken");
+  // this.$store.dispatch("checkToken");
   },
 
   components: {
