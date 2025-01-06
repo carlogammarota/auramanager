@@ -177,10 +177,10 @@ export default {
           
 
 				//produccion
-				// axios.post('http://localhost:1020/generar-link', {
+				// axios.post('http://localhost:5555/generar-link', {
 				//test
 				axios
-					.post("http://localhost:1020/generar-link", {
+					.post("http://localhost:5555/generar-link", {
 						cantidad: this.cantidadDeTickets,
 						email: this.email,
 

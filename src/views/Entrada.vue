@@ -231,7 +231,7 @@ export default {
       }
 
 
-      axios.post('http://localhost:1020/entradas/', this.nuevaEntrada, {
+      axios.post('http://localhost:5555/entradas/', this.nuevaEntrada, {
         headers: {
           'Authorization': `Bearer ${this.getToken}`,
         },
@@ -252,7 +252,7 @@ export default {
 
     },
     getEntradas() {
-      axios.get('http://localhost:1020/entradas/', {
+      axios.get('http://localhost:5555/entradas/', {
         headers: {
           'Authorization': `Bearer ${this.getToken}`,
         },
@@ -268,7 +268,7 @@ export default {
       })
     },
     eliminar() {
-      axios.delete(`http://localhost:1020/entradas/${this.ticket_seleccionado._id}`, {
+      axios.delete(`http://localhost:5555/entradas/${this.ticket_seleccionado._id}`, {
         headers: {
           'Authorization': `Bearer ${this.getToken}`,
         },

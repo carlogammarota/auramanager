@@ -537,8 +537,8 @@ export default {
 
       axios
         .post(
-          "http://localhost:1020/ventas-all/",
-          // "http://localhost:1020/ventas/",
+          "http://localhost:5555/ventas-all/",
+          // "http://localhost:5555/ventas/",
           this.values,
           {
             headers: { Authorization: "Bearer " + this.token },
@@ -559,8 +559,8 @@ export default {
     traerVentas() {
       axios
         .get(
-          "http://localhost:1020/ventas-all/",
-          // axios.get("http://localhost:1020/ventas/",
+          "http://localhost:5555/ventas-all/",
+          // axios.get("http://localhost:5555/ventas/",
           {
             headers: { Authorization: "Bearer " + this.token },
           }
