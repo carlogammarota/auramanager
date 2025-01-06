@@ -40,7 +40,7 @@
             </div>
         </div>
         <!-- {{ entrada }}  -->
-        <div class="flex items-center justify-center h-full" v-if="!entrada._id && !loader">
+        <div class="flex items-center justify-center h-full mt-4" v-if="!entrada._id && !loader">
             <div class="d-block">
                 <i class="fas fa-exclamation-circle text-red-500 mr-2 te" style="font-size: 50px;"></i>
             </div>
@@ -91,7 +91,7 @@
                                 </div>
                                 <!-- <div class="ml-auto text-blue-800">{{ entrada._id }}</div> -->
                                 <!-- //mostrar dni -->
-                                <p>nombre</p>
+                                <p>Nombre del Ticket</p>
                                 <p class="text-2xl font-bold">{{entrada.fullname}}</p>
                                 <div v-if="entrada.dni">
                                     <p class="mt-8 text-1xl">Ultimos 3 numeros</p>

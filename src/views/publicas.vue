@@ -68,7 +68,7 @@ export default {
         dni: null,
         estado: 'no-ingreso',
         consumicion: false,
-        fullname: '',
+        fullname: 'Sistema de Tickets',
         publica: ''
       },
       cantidad: 1,
@@ -98,6 +98,8 @@ export default {
         this.tickets = responses.map(response => response.data); // Extraer los datos
       } catch (error) {
         console.error('Error generando entradas:', error);
+        //no tienes permiso alerta
+        alert('No tienes permiso para generar entradas');
       }
     },
     copyLinks() {
