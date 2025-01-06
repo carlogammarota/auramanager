@@ -537,8 +537,8 @@ export default {
 
       axios
         .post(
-          "http://localhost:5555/ventas-all/",
-          // "http://localhost:5555/ventas/",
+          "https://api.charlygproducciones.com/ventas-all/",
+          // "https://api.charlygproducciones.com/ventas/",
           this.values,
           {
             headers: { Authorization: "Bearer " + this.token },
@@ -559,8 +559,8 @@ export default {
     traerVentas() {
       axios
         .get(
-          "http://localhost:5555/ventas-all/",
-          // axios.get("http://localhost:5555/ventas/",
+          "https://api.charlygproducciones.com/ventas-all/",
+          // axios.get("https://api.charlygproducciones.com/ventas/",
           {
             headers: { Authorization: "Bearer " + this.token },
           }

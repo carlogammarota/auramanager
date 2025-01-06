@@ -92,7 +92,7 @@ export default {
         async login() {
             this.loading = true
             try {
-                const res = await axios.post('http://localhost:5555/authentication', {
+                const res = await axios.post('https://api.charlygproducciones.com/authentication', {
                     // const res = await axios.post('http://192.168.1.8:5050/authentication', {
                     "strategy": "local",
                     email: this.email,

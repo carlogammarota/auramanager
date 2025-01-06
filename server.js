@@ -5,6 +5,12 @@ const history = require('connect-history-api-fallback');
 
 const app = express();
 
+//aura
+const meta_img = 'https://i.ibb.co/LJCLSDc/Aura-Meta-Tickets.jpg';
+
+//aztec
+// const meta_img = 'https://i.ibb.co/XyXMvXy/meta-img.jpg';
+
 // Meta tags definidos como JSON para facilitar cambios
 const metaTagsConfig = {
   '/comprar': {
@@ -15,7 +21,7 @@ const metaTagsConfig = {
     ogTitle: 'Comprar entradas para el evento',
     ogDescription: 'Compra tus entradas para el evento más esperado.',
     // ogImage: 'https://charlygproducciones.com/img/logo.86714784.png', ahora en meta_img.jpeg
-    ogImage: 'https://i.ibb.co/XyXMvXy/meta-img.jpg',
+    ogImage: meta_img,
     ogUrl: 'https://charlygproducciones.com/comprar',
     twitterCard: 'summary_large_image'
   },
@@ -26,7 +32,7 @@ const metaTagsConfig = {
     author: 'Charly G Producciones',
     ogTitle: 'Página principal',
     ogDescription: 'Bienvenido a Charly G Producciones. Descubre los mejores eventos.',
-    ogImage: 'https://i.ibb.co/XyXMvXy/meta-img.jpg',
+    ogImage: meta_img,
     ogUrl: 'https://charlygproducciones.com',
     twitterCard: 'summary_large_image'
   }

@@ -207,7 +207,7 @@ export default {
         confirmarconsumicion() {
             this.modalconsumicion = false;
             this.loaderconsumicion = true;
-            axios.patch('http://localhost:5555/entradas/' + this.$route.params.id, {
+            axios.patch('https://api.charlygproducciones.com/entradas/' + this.$route.params.id, {
 
                 consumicion: false
             }, {
@@ -239,7 +239,7 @@ export default {
             // if (dni && dniMayor) {
             this.modal = false;
             this.loader = true;
-            axios.patch('http://localhost:5555/entradas/' + this.$route.params.id, {
+            axios.patch('https://api.charlygproducciones.com/entradas/' + this.$route.params.id, {
                 // axios.patch('http://192.168.1.8:5050/entradas/' + this.$route.params.id, {
                 estado: 'ingreso',
                 // dni: ''
@@ -274,7 +274,7 @@ export default {
 
         getEntrada() {
             this.loader = true
-            axios.get('http://localhost:5555/entradas/' + this.$route.params.id,
+            axios.get('https://api.charlygproducciones.com/entradas/' + this.$route.params.id,
                 {
                     headers: { 'Authorization': 'Bearer ' + this.token }
                 })

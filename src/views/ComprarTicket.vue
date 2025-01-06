@@ -177,10 +177,10 @@ export default {
           
 
 				//produccion
-				// axios.post('http://localhost:5555/generar-link', {
+				// axios.post('https://api.charlygproducciones.com/generar-link', {
 				//test
 				axios
-					.post("http://localhost:5555/generar-link", {
+					.post("https://api.charlygproducciones.com/generar-link", {
 						cantidad: this.cantidadDeTickets,
 						email: this.email,
 
