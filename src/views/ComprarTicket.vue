@@ -1,135 +1,114 @@
 <template>
-    <div>
+	<div>
+		<div class="flex flex-col items-center justify-center bg-black py-10" v-if="publica">
+			<!-- Contenedor del mensaje con Tailwind -->
+			<div class="bg-gray-800 p-8 rounded-lg shadow-lg max-w-lg w-full text-center">
+				<div class="flex justify-center items-center mb-4">
+					<!-- Ícono de FontAwesome -->
+					<i class="fas fa-gift text-4xl text-green-400 mr-4"></i>
+					<h2 class="text-3xl font-semibold text-white">¡Oferta Especial!</h2>
+				</div>
 
-	
-		<div class="flex flex-col items-center justify-center bg-gray-100 py-10" v-if="publica">
-    <!-- Contenedor del mensaje con Tailwind -->
-    <div class="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full text-center">
-      <div class="flex justify-center items-center mb-4">
-        <!-- Ícono de FontAwesome -->
-        <i class="fas fa-gift text-4xl text-green-500 mr-4"></i>
-        <h2 class="text-3xl font-semibold text-gray-800">¡Oferta Especial!</h2>
-      </div>
+				<p class="text-lg text-gray-300 mb-4">
+					Esta es una oferta especial de la mano de
+					<span class="font-bold text-blue-400">{{ publica }}</span>
+				</p>
+			</div>
+		</div>
 
-      <p class="text-lg text-gray-600 mb-4">
-        Esta es una oferta especial de la mano de 
-        <span class="font-bold text-blue-500">{{ publica }}</span>
-      </p>
+		<div class="flex justify-center items-center bg-black py-12" v-if="ventaDeEntradas">
+			<div v-if="loader"><span class="loader"></span></div>
+			<div v-if="!loader" class="rounded">
+				<div class="border p-6 border-dashed border-gray-600 rounded-lg">
+					<!-- Logo -->
+					<img src="@/assets/logoAztecNegro.png" alt="Logo Aztec" class="mx-auto w-52 mb-4" />
 
-    </div>
-  </div>
-        <div class="flex justify-center items-center bg-gray-100 py-12" v-if="ventaDeEntradas">
-            <div v-if="loader"><span class="loader"></span></div>
-            <div v-if="!loader" class=" rounded ">
+					<!-- Flyer -->
+					<img src="@/assets/flayer_aztec.jpg" alt="Flayer Aztec" class="mx-auto my-6 w-72" />
 
+					<!-- Fecha y Lugar -->
+					<p class="text-lg text-gray-300 flex items-center justify-center mb-2">
+						<i class="fas fa-calendar-alt text-purple-400 mr-2"></i> Viernes 10 de Enero, 00 HS
+					</p>
+					<p class="text-2xl font-bold text-center mb-2 text-purple-400">VALPISA</p>
+					<p class="text-lg text-gray-300 flex items-center justify-center mb-2">
+						<i class="fas fa-map-marker-alt text-red-400 mr-2"></i>
+						Diag. Buenos Aires 102, X5184 Capilla del Monte, Córdoba
+					</p>
 
+					<!-- Mapa -->
+					<Mapa />
 
-                <!-- <h1 class="text-2xl font-bold mb-4">Información de Pago</h1> -->
-                <div class="border p-4 border-dashed border-purple-300">
-                    <!-- <h2 class="text-2xl font-bold">Comprar Ticket</h2> -->
-                    <img src="@/assets/logo.png" class=" mx-auto" style="width:300px !important;"></img>
+					<!-- Precio -->
+					<div class="text-center my-8">
+						<h1 class="text-2xl text-white flex items-center justify-center mb-2">
+							<i class="fas fa-tag text-green-400 mr-2"></i> PRECIO
+						</h1>
+						<h1 class="font-bold text-2xl text-purple-400 mb-2">$8000</h1>
+						<p class="text-lg text-gray-300">x Ticket</p>
+					</div>
+				</div>
 
+				<!-- Checkout -->
+				<div class="checkout-container mt-8 mb-8 border border-dashed bg-gray-800 rounded">
+					<img src="@/assets/mercadopago.webp" class="mx-auto my-8 mt-24" style="width:150px !important;" />
 
-                    <!-- <h1 class="text-2xl font-bold">Aura Productora</h1> -->
-                    <!-- <h1 class="text-2xl">PRESENTA</h1> -->
-                    <img src="@/assets/flayer.jpg" class=" mx-auto my-4" style="width:300px !important;"></img>
-                    <p class="mb-4"> Sabado 25 de enero desde las 18:00hs</p>
-                    <p class="text-2xl font-bold mb-4">CLUB BALUMBA</p>
-                    <Mapa />
-                    <br class=""> Pueyrredón 973, X5184 <br> Capilla del Monte, Córdoba</p>
-                    <div class="my-8">
-                        <div class="my-8">
-                            <h1 class="text-2xl">PRECIO</h1>
-                            <h1 class="font-bold text-2xl">$3000</h1>
-                            <h1 class="mt-2">x Ticket</h1>
-                        </div>
+					<p class="text-2xl text-white my-4">Tickets</p>
 
-                    </div>
-                </div>
-                <!-- <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0"> -->
+					<div class="quantity-container text-center">
+						<button @click="restar()" class="quantity-button px-4" type="button">
+							<i class="fas fa-minus-circle text-4xl text-gray-300"></i>
+						</button>
+						<span class="text-5xl text-white">{{ cantidadDeTickets }}</span>
+						<button @click="sumar()" class="quantity-button px-4" type="button">
+							<i class="fas fa-plus-circle text-4xl text-gray-300"></i>
+						</button>
+					</div>
 
+					<div class="total-text text-center mt-4">
+						<span class="text-3xl text-white">Total: ${{ total }}</span>
+					</div>
 
+					<div class="mb-4 mt-8 px-8">
+						<label class="block text-gray-300 text-sm font-bold mb-2" for="username">
+							Email
+						</label>
+						<input v-model="email"
+							class="shadow appearance-none border rounded w-full py-3 px-3 bg-gray-900 text-white leading-tight focus:outline-none focus:shadow-outline text-center"
+							id="username" type="email" placeholder="tuemail@gmail.com" />
 
-                <!-- </div> -->
-                <!-- <p>Ticket con +1 Consumición</p> -->
+						<!-- Nombre y Apellido -->
+						<div v-for="(item, index) in cantidadDeTickets" :key="index" class="mt-4">
+							<label class="block text-gray-300 text-sm font-bold mb-2" for="fullname">
+								Nombre y Apellido (Persona {{ index + 1 }})
+							</label>
+							<input v-model="participantes[index]"
+								class="shadow appearance-none border rounded w-full py-3 px-3 bg-gray-900 text-white leading-tight focus:outline-none focus:shadow-outline text-center"
+								id="fullname" type="text" placeholder="Jorge Guevara" />
+						</div>
+					</div>
 
-                <!-- <div class="mt-8 pb-4 w-full">
+					<div class="px-12 w-full mt-8">
+						<button class="buy-button bg-purple-500 mb-24 px-4 d-block w-full text-white font-bold py-3 rounded"
+							@click="generarLink()">
+							<span>Comprar Tickets</span>
+						</button>
+					</div>
+				</div>
 
-                    <button @click="generarLink()"
-                        class="py-2 px-4 rounded text-white font-semibold text-center btn-comprar bg-green-500 w-full">
-                        Comprar Ticket
-                    </button>
-                </div> -->
-                <div class="checkout-container mt-8 mb-8 border border-dashed bg-purple-100 rounded">
-                    <img src="@/assets/mercadopago.webp" class=" mx-auto my-8 mt-24" style="width:150px !important;"></img>
-                    <p class="text-2xl my-4">Tickets</p>
+				<Ayuda class="mt-12 bg-gray-700 p-4 rounded text-gray-300" />
+			</div>
+		</div>
 
-                    <div class="quantity-container">
-
-                        <div>
-                            <button @click="restar()" class="quantity-button px-4" type="button">
-                                <i class="fas fa-minus-circle text-4xl"></i>
-                            </button>
-                            <span class="text-5xl ">{{ cantidadDeTickets }}</span>
-                            <button @click="sumar()" class="quantity-button px-4" type="button">
-                                <i class="fas fa-plus-circle text-4xl"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="total-text">
-                        <span class="text-3xl">Total: ${{ total }}</span>
-                    </div>
-                    <div class="mb-4 mt-8">
-                        <label class="block text-gray-700 text-sm font-bold mb-2 mt-2" for="username">
-                            Email
-                        </label>
-                        <input v-model="email"
-                            class="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-center"
-                            id="username" type="email" placeholder="tuemail@gmail.com">
-
-                            <!-- nombre y appelido inputs -->
-
-                            <div  v-for="(item, index) in cantidadDeTickets" :key="index">
-                             <label class="block text-gray-700 text-sm font-bold mb-2 mt-2" for="username">
-                            Nombre y Apellido (Persona {{index + 1}})
-                            </label>
-                            <input v-model="participantes[index]"
-                                class="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-center"
-                                id="fullname" type="text" placeholder="Jorge Guevara">
-                            </div>
-
-                            <!-- {{participantes}} -->
-
-                            
-
-
-
-                            
-
-                        
-                            
-                    </div>
-                    <div class="px-12 w-full">
-                        <button class="buy-button bg-purple-500 mb-24 px-4 d-block w-full" @click="generarLink()">
-                            <!-- <i class="fas fa-mobile-alt buy-button-icon text-2xl"></i> -->
-                            <span>Comprar Tickets</span>
-                        </button>
-                    </div>
-                </div>
-                <Ayuda class="mt-12 bg-gray-300 p-4 rounded" />
-            </div>
-        </div>
-
-        <div v-if="!ventaDeEntradas">
-			<p>Se cerro la venta de anticipadas.</p>
-            <!-- generar en tailwindcss un mensaje que diga que no hay entradas disponibles -->
-            <div class="h-screen m-auto mt-24">
-                <p class="text-2xl font-bold ">La venta de entradas no esta disponible</p>
-            </div>
-        </div>
-    </div>
+		<div v-if="!ventaDeEntradas">
+			<p class="text-white">Se cerró la venta de anticipadas.</p>
+			<div class="h-screen m-auto mt-24 text-center">
+				<p class="text-2xl font-bold text-white">La venta de entradas no está disponible</p>
+			</div>
+		</div>
+	</div>
 </template>
+
 <script>
 import Mapa from "@/components/Mapa.vue";
 import axios from "axios";
@@ -143,8 +122,8 @@ export default {
 			loader: false,
 			cantidadDeTickets: 1,
 			email: "",
-			total: 3000,
-            participantes: [],
+			total: 8000,
+			participantes: [],
 			publica: ''
 		};
 	},
@@ -174,7 +153,7 @@ export default {
 			if (this.cantidadDeTickets > 0 && comprobacionEmail) {
 				this.loader = true;
 
-          
+
 
 				//produccion
 				// axios.post('https://api.charlygproducciones.com/generar-link', {
@@ -228,7 +207,7 @@ export default {
 	},
 	watch: {
 		cantidadDeTickets: function (val) {
-			this.total = val * 3000;
+			this.total = val * 8000;
 		},
 	},
 	components: {

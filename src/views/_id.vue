@@ -55,7 +55,7 @@
         <div class="mx-2" v-if="entrada._id">
             <!-- <h1 class="text-4xl">TICKET</h1> -->
 
-            <div class="max-w-md w-full h-full z-10 bg-purple-900 rounded-3xl m-auto">
+            <div class="max-w-md w-full h-full z-10 bg-black rounded-3xl m-auto">
                 <div class="flex flex-col mt-4 mb-12">
                     <div class="bg-white relative drop-shadow-2xl rounded-3xl p-4 m-4" style="background: #f5eef9;">
                         <div class="">
@@ -75,7 +75,8 @@
                             <div class=" m-auto justify-center">
                                 <div class=" items-center">
 
-                                    <img src="@/assets/logo.png" class=" mx-auto mb-4">
+                                    <img src="@/assets/logoAztecNegro.png" class="mx-auto mb-4 mt-4"
+                                        style="width: 150px;">
 
                                     <!-- {{ entrada }} -->
                                     <!-- <h1 class="text-4xl text-green-600" v-if="entrada.consumicion">+1 consumicion</h1> -->
@@ -84,15 +85,20 @@
                                     </h1> -->
                                 </div>
                                 <div class=" items-center justify-between mt-4">
-                                    <div class=" items-center text-center  my-1">
-                                        <h2 class="font-medium text-1xl">Aura Productora Ticket</h2>
+                                    <div class="flex items-center justify-center text-center my-4">
+                                        <h2 class="font-semibold text-lg text-gray-800 tracking-wide">Aura Productora
+                                            Ticket</h2>
                                     </div>
+
 
                                 </div>
                                 <!-- <div class="ml-auto text-blue-800">{{ entrada._id }}</div> -->
                                 <!-- //mostrar dni -->
-                                <p>Nombre del Ticket</p>
-                                <p class="text-2xl font-bold">{{entrada.fullname}}</p>
+                                <div class="max-w-sm mx-auto bg-white shadow-md rounded-lg p-6 sm:max-w-md md:max-w-lg">
+                                    <p class="text-gray-500 text-sm uppercase tracking-wider">Nombre del Ticket</p>
+                                    <p class="text-2xl font-bold text-gray-800 mt-2">{{ entrada.fullname }}</p>
+                                </div>
+
                                 <div v-if="entrada.dni">
                                     <p class="mt-8 text-1xl">Ultimos 3 numeros</p>
                                     <div class="ml-auto text-blue-800 text-3xl mb-2">
@@ -104,8 +110,8 @@
 
                                 <div class="border-b border-dashed border-black border-b-2  pt-5">
 
-                                    <div class="absolute rounded-full w-5 h-5 bg-purple-900 -mt-2 -left-2"></div>
-                                    <div class="absolute rounded-full w-5 h-5 bg-purple-900 -mt-2 -right-2"></div>
+                                    <div class="absolute rounded-full w-5 h-5 bg-black -mt-2 -left-2"></div>
+                                    <div class="absolute rounded-full w-5 h-5 bg-black -mt-2 -right-2"></div>
                                 </div>
                                 <div class=" items-center p-5 text-sm mt-4">
                                     <div class="flex flex-col">
@@ -117,14 +123,14 @@
 
                                         <div v-if="loader"><span class="loader"></span></div>
 
-                                       <div v-if="entrada.estado != 'ingreso'">
-                                         <button
-                                            v-if="getRole == 'entrada' || getRole == 'admin' && entrada.estado == 'no-ingreso' && !loader"
-                                            @click="confirmarIngreso()"
-                                            class="uppercase bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
-                                            Confirmar Ingreso
-                                        </button>
-                                       </div>
+                                        <div v-if="entrada.estado != 'ingreso'">
+                                            <button
+                                                v-if="getRole == 'entrada' || getRole == 'admin' && entrada.estado == 'no-ingreso' && !loader"
+                                                @click="confirmarIngreso()"
+                                                class="uppercase bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded mb-4">
+                                                Confirmar Ingreso
+                                            </button>
+                                        </div>
                                     </div>
                                     <!-- <div class="flex flex-col ml-auto">
                                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -134,14 +140,15 @@
                                 </div>
 
                                 <div class="border-b border-dashed border-black border-b-2  pt-2">
-                                    <div class="absolute rounded-full w-5 h-5 bg-purple-900 -mt-2 -left-2"></div>
-                                    <div class="absolute rounded-full w-5 h-5 bg-purple-900 -mt-2 -right-2"></div>
+                                    <div class="absolute rounded-full w-5 h-5 bg-black -mt-2 -left-2"></div>
+                                    <div class="absolute rounded-full w-5 h-5 bg-black -mt-2 -right-2"></div>
                                 </div>
                                 <div class=" items-center p-5 text-sm mt-4">
                                     <div class="flex flex-col">
                                         <!--  -->
                                         <h2 v-if="!entrada.consumicion"
-                                            class="text-2xl text-red-600 uppercase mb-2 py-2 px-4">Sin Consumición
+                                            class="text-2xl text-red-600 uppercase mb-2 py-2 px-4 hidden">Sin
+                                            Consumición
                                         </h2>
                                         <h2 v-if="entrada.consumicion && !loaderconsumicion"
                                             class=" text-2xl text-green-600 uppercase mb-2 py-2 px-4">+1 Consumición
@@ -151,11 +158,11 @@
                                         <button
                                             v-if="getRole == 'barra' || getRole == 'admin' && entrada.consumicion && !loaderconsumicion"
                                             @click="Entregarconsumicion()"
-                                            class="uppercase bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+                                            class="uppercase bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded">
                                             Entregar Consumición
                                         </button>
                                     </div>
-                                    
+
                                     <!-- <div class="flex flex-col ml-auto">
                                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                     Button
@@ -163,21 +170,20 @@
 								</div> -->
                                 </div>
                                 <!-- Boton "escanear otro ticket" -->
-                               
+
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
-         <div class="flex justify-center my-8">
-                                    <router-link to="/entrada"
-                                        class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
-                                        Escanear otro ticket
-                                    </router-link>
-                                </div>
+        <div class="flex justify-center my-8">
+            <router-link to="/entrada" class="bg-gray-500 hover:bg-black text-white font-bold py-2 px-4 rounded">
+                Escanear otro ticket
+            </router-link>
+        </div>
     </div>
 </template>
 <script>

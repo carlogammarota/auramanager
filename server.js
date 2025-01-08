@@ -1,3 +1,5 @@
+//a hacer: en el caso que la ruta sea /login o / tiene que mostrar meta tags del administrador. con https://i.ibb.co/WVx5cPh/administrador.png
+
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
@@ -6,10 +8,10 @@ const history = require('connect-history-api-fallback');
 const app = express();
 
 //aura
-const meta_img = 'https://i.ibb.co/LJCLSDc/Aura-Meta-Tickets.jpg';
+// const meta_img = 'https://i.ibb.co/LJCLSDc/Aura-Meta-Tickets.jpg';
 
 //aztec
-// const meta_img = 'https://i.ibb.co/XyXMvXy/meta-img.jpg';
+const meta_img = 'https://i.ibb.co/XyXMvXy/meta-img.jpg';
 
 // Meta tags definidos como JSON para facilitar cambios
 const metaTagsConfig = {
@@ -26,14 +28,25 @@ const metaTagsConfig = {
     twitterCard: 'summary_large_image'
   },
   '/': {
-    title: 'Página principal',
-    description: 'Bienvenido a Charly G Producciones. Descubre los mejores eventos.',
-    keywords: 'eventos, música, teatro, entradas',
+    title: 'Administrador',
+    description: 'Accede al panel del administrador.',
+    keywords: 'administrador, panel, gestión',
     author: 'Charly G Producciones',
-    ogTitle: 'Página principal',
-    ogDescription: 'Bienvenido a Charly G Producciones. Descubre los mejores eventos.',
-    ogImage: meta_img,
+    ogTitle: 'Administrador',
+    ogDescription: 'Accede al panel del administrador.',
+    ogImage: 'https://i.ibb.co/WVx5cPh/administrador.png',
     ogUrl: 'https://charlygproducciones.com',
+    twitterCard: 'summary_large_image'
+  },
+  '/login': {
+    title: 'Login - Administrador',
+    description: 'Inicia sesión en el panel del administrador.',
+    keywords: 'login, administrador, acceso',
+    author: 'Charly G Producciones',
+    ogTitle: 'Login - Administrador',
+    ogDescription: 'Inicia sesión en el panel del administrador.',
+    ogImage: 'https://i.ibb.co/WVx5cPh/administrador.png',
+    ogUrl: 'https://charlygproducciones.com/login',
     twitterCard: 'summary_large_image'
   }
 };

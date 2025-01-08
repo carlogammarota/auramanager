@@ -61,7 +61,10 @@ export default new Vuex.Store({
       state.token_string = "",
       state.token = false // Only in my setup remove session token
       state.isUserLoggedIn = false // this will trigger the vue-persist-store plugin to set all state to empty on the location relaod
-      router.push("/login")
+      //si la ruta actual es comprar, no redirigir
+      if(router.currentRoute.name != 'comprar'){
+        router.push("/login")
+      }
 
 
   },

@@ -20,13 +20,16 @@ export default {
         const map = new this.mapboxgl.Map({
             container: 'mapa',
             style: 'mapbox://styles/mapbox/streets-v11',
-            center: [ -64.52661079805958, -30.86643741243709],
-            zoom: 15,
+            center: [-64.5233097, -30.8599891],
+            zoom: 14,
             accessToken: mapboxAccessToken
         })
 
         new this.mapboxgl.Marker()
-            .setLngLat([-64.52661079805958, -30.86643741243709])
+            .setLngLat([-64.5233097, -30.8599891]
+            )
+            //coolor
+            .setPopup(new this.mapboxgl.Popup().setHTML('<img src="https://i.ibb.co/Np3TYwV/flayer-aztec.jpg" alt="Flayer Aztec" class="mx-auto my-6 w-72" />'))
             .addTo(map)
             .Popup()
             .setHTML('<h3>Información del marcador</h3><p>Aquí puedes agregar cualquier contenido adicional que desees mostrar.</p>');
