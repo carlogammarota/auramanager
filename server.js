@@ -68,23 +68,23 @@ const metaTagsConfig = {
     title: 'Comprar entradas para el evento',
     description: 'Compra tus entradas para el evento más esperado.',
     keywords: 'entradas, evento, comprar, música, teatro',
-    author: 'Charly G Producciones',
+    author: 'Aura Producciones',
     ogTitle: 'Comprar entradas para el evento',
     ogDescription: 'Compra tus entradas para el evento más esperado.',
     // ogImage: 'https://charlygproducciones.com/img/logo.86714784.png', ahora en meta_img.jpeg
     ogImage: meta_img,
-    ogUrl: 'https://charlygproducciones.com/comprar',
+    ogUrl: 'https://aura.armortemplate.com/comprar',
     twitterCard: 'summary_large_image'
   },
   '/': {
     title: 'Página principal',
-    description: 'Bienvenido a Charly G Producciones. Descubre los mejores eventos.',
+    description: 'Bienvenido a Aura Producciones. Descubre los mejores eventos.',
     keywords: 'eventos, música, teatro, entradas',
-    author: 'Charly G Producciones',
+    author: 'Aura Producciones',
     ogTitle: 'Página principal',
     ogDescription: 'Bienvenido a Charly G Producciones. Descubre los mejores eventos.',
     ogImage: meta_img,
-    ogUrl: 'https://charlygproducciones.com',
+    ogUrl: 'https://aura.armortemplate.com',
     twitterCard: 'summary_large_image'
   }
 };
@@ -135,6 +135,6 @@ app.use(express.static(path.join(__dirname, 'dist')));
 // Iniciar el servidor
 
 
-server.listen(7878, () => {
-  console.log('server running at http://localhost:7878');
+server.listen(9090, () => {
+  console.log('server running at http://localhost:9090');
 });

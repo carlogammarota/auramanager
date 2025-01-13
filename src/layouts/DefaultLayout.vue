@@ -11,7 +11,7 @@
   <div class="flex items-center space-x-4 sm:space-x-6">
 
     <!-- User Profile Login -->
-    <div class="flex items-center space-x-3">
+    <div class="flex items-center space-x-3" v-if="getToken">
       <!-- {{ getUser }} -->
       <p class="text-lg font-medium text-white hidden md:block" >{{ getUser.name }}</p>
       <img :src="getUser.imagen" id="user_picture"

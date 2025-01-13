@@ -14,7 +14,6 @@ import Autologin from "../views/Autologin.vue";
 import AdminLayout from "@/layouts/AdminLayout.vue";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
 Vue.use(VueRouter);
-
 const routes = [
   {
     path: "/",
@@ -24,7 +23,7 @@ const routes = [
         name: "radio",
         path: "",
         component: radio, // Radio es ahora la página principal
-        meta: { auth: false },
+        meta: { auth: false }, // No requiere autenticación
       },
     ],
   },
@@ -35,95 +34,96 @@ const routes = [
       {
         name: "home",
         path: "",
-        component: Home,
-        meta: { auth: true },
+        component: Home, // Página principal del área admin
+        meta: { auth: true, permissions: ['admin'] }, // Requiere autenticación y permisos de admin
       },
       {
         name: "entrada",
         path: "entrada",
-        component: Entrada,
-        meta: { auth: true },
+        component: Entrada, // Página para gestionar entradas
+        meta: { auth: true, permissions: ['entrada'] }, // Requiere autenticación y permisos de entrada
       },
       {
         name: "login",
         path: "login",
-        component: LoginView,
-        meta: { auth: false },
+        component: LoginView, // Página de login
+        meta: { auth: false }, // No requiere autenticación
       },
       {
         path: "entradas/:id",
         name: "_id",
-        component: _id,
-        meta: { auth: true },
-      },
-      {
-        path: "gracias/:id",
-        name: "gracias",
-        component: Gracias,
-        meta: { auth: false },
+        component: _id, // Vista dinámica para mostrar entradas específicas
+        meta: { auth: true, permissions: ['admin', 'entrada'] }, // Requiere autenticación y permisos admin o entrada
       },
       {
         path: "publicas",
         name: "publicas",
-        component: publicas,
-        meta: { auth: false },
+        component: publicas, // Página de recursos públicos
+        meta: { auth: false }, // No requiere autenticación
       },
       {
         path: "barra",
         name: "barra",
         component: () =>
-          import(/* webpackChunkName: "barra" */ "../views/Barra.vue"),
-        meta: { auth: true },
+          import(/* webpackChunkName: "barra" */ "../views/Barra.vue"), // Carga la vista de la barra de administración
+        meta: { auth: true, permissions: ['admin'] }, // Solo accesible para admins
       },
     ],
   },
   {
     path: "/comprar",
     name: "comprar",
-    component: ComprarTicket,
-    meta: { auth: true }, // Requiere autenticación
+    component: ComprarTicket, // Página para comprar tickets
+    meta: { auth: false }, // No requiere autenticación
   },
   {
     path: "/autologin",
     name: "autologin",
-    component: Autologin,
+    component: Autologin, // Página para auto-login, posiblemente una redirección
+    meta: { auth: false }, // No requiere autenticación
+  },
+  {
+    path: "/gracias/:id",
+    name: "gracias",
+    component: Gracias, // Página de agradecimiento después de una compra o acción
+    meta: { auth: false }, // No requiere autenticación
   },
 ];
 
 const router = new VueRouter({
   mode: "history", // Asegúrate de que tu servidor maneje el modo history correctamente
-  base: process.env.BASE_URL,
+  base: process.env.BASE_URL, // Base URL de la aplicación
   routes,
 });
 
+// Configuración de navegación antes de cada cambio de ruta
 router.beforeEach((to, from, next) => {
-  const token = store.getters.getTokenString;
-  const user = store.getters.getUser;
-  const permissions = user ? user.permissions : [];
+  const token = store.getters.getTokenString; // Obtener token de autenticación desde Vuex
+  const user = store.getters.getUser; // Obtener información del usuario desde Vuex
+  const permissions = store.getters.getUser.permissions; // Obtener permisos del usuario desde Vuex
 
-  console.log(`Navigating to: ${to.name}, Auth required: ${to.meta.auth}`);
-  console.log(`Token: ${token}, User: ${JSON.stringify(user)}`);
-
+  // Si la ruta requiere autenticación
   if (to.meta.auth && !token) {
-    console.log("Redirecting to radio due to missing token");
-    if (["radio", "comprar"].includes(to.name)) {
-      next();
-    } else {
-      next({ name: "radio" });
-    }
-  } else {
-    if (to.meta.auth && permissions) {
-      if (!permissions.includes("admin") && !permissions.includes("entrada")) {
-        console.log("Redirecting to radio due to missing permissions");
-        next({ name: "radio" });
-      } else {
-        next();
-      }
-    } else {
-      next();
+    return next({ name: 'login' }); // Redirige a la página de login si no hay token
+  }
+
+  // Verifica los permisos si la ruta los requiere
+  if (to.meta.permissions) {
+    const hasPermission = to.meta.permissions.some(permission => permissions.includes(permission));
+    if (!hasPermission) {
+      return next({ name: 'home' }); // Redirige a la página de inicio si no tiene permisos
     }
   }
+
+  // Si todo está en orden, permitir navegación
+  next();
 });
+
+
+
+
+
+
 
 
 export default router;
