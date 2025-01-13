@@ -119,7 +119,7 @@
 
                                        <div v-if="entrada.estado != 'ingreso'">
                                          <button
-                                            v-if="getRole == 'entrada' || getRole == 'admin' && entrada.estado == 'no-ingreso' && !loader"
+                                            v-if="mostrarBoton && entrada.estado == 'no-ingreso' && !loader"
                                             @click="confirmarIngreso()"
                                             class="uppercase bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
                                             Confirmar Ingreso
@@ -207,7 +207,7 @@ export default {
         confirmarconsumicion() {
             this.modalconsumicion = false;
             this.loaderconsumicion = true;
-            axios.patch('https://api.charlygproducciones.com/entradas/' + this.$route.params.id, {
+            axios.patch('https://api-aura.armortemplate.com/entradas/' + this.$route.params.id, {
 
                 consumicion: false
             }, {
@@ -239,7 +239,7 @@ export default {
             // if (dni && dniMayor) {
             this.modal = false;
             this.loader = true;
-            axios.patch('https://api.charlygproducciones.com/entradas/' + this.$route.params.id, {
+            axios.patch('https://api-aura.armortemplate.com/entradas/' + this.$route.params.id, {
                 // axios.patch('http://192.168.1.8:5050/entradas/' + this.$route.params.id, {
                 estado: 'ingreso',
                 // dni: ''
@@ -274,7 +274,7 @@ export default {
 
         getEntrada() {
             this.loader = true
-            axios.get('https://api.charlygproducciones.com/entradas/' + this.$route.params.id,
+            axios.get('https://api-aura.armortemplate.com/entradas/' + this.$route.params.id,
                 {
                     headers: { 'Authorization': 'Bearer ' + this.token }
                 })
@@ -297,8 +297,12 @@ export default {
     computed: {
         getRole() {
             return this.$store.getters.getUser
-
-
+        },
+        mostrarBoton() {
+        return (
+            this.$store.getters.getUser.permissions.includes('entrada') ||
+            this.$store.getters.getUser.permissions.includes('admin')
+        );
         },
     },
 }

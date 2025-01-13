@@ -537,8 +537,8 @@ export default {
 
       axios
         .post(
-          "https://api.charlygproducciones.com/ventas-all/",
-          // "https://api.charlygproducciones.com/ventas/",
+          "http://192.168.1.3:3030/ventas-all/",
+          // "https://radio-aura.armortemplate.com/ventas/",
           this.values,
           {
             headers: { Authorization: "Bearer " + this.token },
@@ -559,8 +559,8 @@ export default {
     traerVentas() {
       axios
         .get(
-          "https://api.charlygproducciones.com/ventas-all/",
-          // axios.get("https://api.charlygproducciones.com/ventas/",
+          "https://api-aura.armortemplate.com/ventas-all/",
+          // axios.get("https://radio-aura.armortemplate.com/ventas/",
           {
             headers: { Authorization: "Bearer " + this.token },
           }

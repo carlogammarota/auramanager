@@ -1,16 +1,17 @@
 <template>
-    <div class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg">
-      <h2 class="text-2xl font-semibold mb-4">Generar Entradas para el Evento</h2>
-  
-      <!-- Formulario para ingresar datos -->
-      <form @submit.prevent="generateEntries" class="space-y-4 text-left">
+    <div class="max-w-4xl mx-auto p-6 shadow-lg rounded-lg h-screen">
+      
+      <div class="bg-black p-4">
+        <h2 class="text-2xl font-semibold mb-4 text-white">Generar Tickets para el Evento</h2>
+         <!-- Formulario para ingresar datos -->
+      <form @submit.prevent="generateEntries" class="space-y-4 text-left ">
         <div class="flex gap-4">
-          <!-- <div class="flex-1">
-            <label for="fullname" class="block text-sm font-bold text-gray-700">Nombre Completo</label>
+           <div class="flex-1">
+            <label for="fullname" class="block text-sm font-bold text-white">Nombre Completo</label>
             <input v-model="form.fullname" id="fullname" type="text" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md" required />
-          </div> -->
+          </div>
           <div class="flex-1">
-            <label for="publica" class="block text-sm font-bold text-gray-700">Publica</label>
+            <label for="publica" class="block text-sm font-bold text-white">Publica</label>
             <input v-model="form.publica" id="publica" type="text" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md" required />
           </div>
         </div>
@@ -26,7 +27,7 @@
         </div> -->
         <div class="flex gap-4">
           <div class="flex-1">
-            <label for="cantidad" class="block text-sm font-bold text-gray-700">Cantidad de Entradas</label>
+            <label for="cantidad" class="block text-sm font-bold text-white">Cantidad de Entradas</label>
             <input v-model="cantidad" id="cantidad" type="number" min="1" max="10" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md" required />
           </div>
         </div>
@@ -42,7 +43,7 @@
           <li v-for="ticket in tickets" :key="ticket._id" class="p-4 bg-gray-100 rounded-md flex justify-between items-center">
             <span>{{ ticket.fullname }} - {{ ticket.publica }}</span>
             <div class="flex gap-2">
-              <a :href="`https://api.charlygproducciones.com/descargar-entradas/${ticket._id}`" class="text-blue-600 hover:underline">
+              <a :href="`https://api-aura.armortemplate.com/descargar-entradas/${ticket._id}`" class="text-blue-600 hover:underline">
                 Ver Ticket
               </a>
               <button @click="copySingleLink(ticket._id)" class="text-green-600 hover:underline">
@@ -55,6 +56,8 @@
           Copiar Links de Todos los Tickets
         </button>
       </div>
+      </div>
+     
     </div>
   </template>
   
@@ -83,7 +86,7 @@ export default {
       const requests = [];
       for (let i = 0; i < this.cantidad; i++) {
         const entry = { ...this.form };
-        requests.push(axios.post('https://api.charlygproducciones.com/entradas', entry, {
+        requests.push(axios.post('https://api-aura.armortemplate.com/entradas', entry, {
           headers: {
             Authorization: `Bearer ${this.getToken}`,
           },
@@ -104,14 +107,14 @@ export default {
     },
     copyLinks() {
       // Unir todos los links con un salto de línea entre cada uno
-      const links = this.tickets.map(ticket => `https://api.charlygproducciones.com/descargar-entradas/${ticket._id}` + ' ').join('\n');
+      const links = this.tickets.map(ticket => `https://api-aura.armortemplate.com/descargar-entradas/${ticket._id}` + ' ').join('\n');
       navigator.clipboard.writeText(links).then(() => {
         alert('Los links de todos los tickets han sido copiados al portapapeles');
       });
     },
     copySingleLink(ticketId) {
       // Generar el enlace para el ticket individual
-      const link = `https://api.charlygproducciones.com/descargar-entradas/${ticketId}`;
+      const link = `https://api-aura.armortemplate.com/descargar-entradas/${ticketId}`;
       navigator.clipboard.writeText(link).then(() => {
         alert('El link del ticket ha sido copiado al portapapeles');
       });

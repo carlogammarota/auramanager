@@ -215,7 +215,7 @@ export default {
         "estado": "ingreso",
         "consumicion": false,
         "fullname": "",
-        "publica": "Puerta Manual (Toti)"
+        "publica": "Puerta Manual"
       },
       eliminarTicketModal: false
     };
@@ -231,7 +231,7 @@ export default {
       }
 
 
-      axios.post('https://api.charlygproducciones.com/entradas/', this.nuevaEntrada, {
+      axios.post('https://api-aura.armortemplate.com/entradas/', this.nuevaEntrada, {
         headers: {
           'Authorization': `Bearer ${this.getToken}`,
         },
@@ -252,7 +252,7 @@ export default {
 
     },
     getEntradas() {
-      axios.get('https://api.charlygproducciones.com/entradas/', {
+      axios.get('https://api-aura.armortemplate.com/entradas/', {
         headers: {
           'Authorization': `Bearer ${this.getToken}`,
         },
@@ -268,7 +268,7 @@ export default {
       })
     },
     eliminar() {
-      axios.delete(`https://api.charlygproducciones.com/entradas/${this.ticket_seleccionado._id}`, {
+      axios.delete(`https://api-aura.armortemplate.com/entradas/${this.ticket_seleccionado._id}`, {
         headers: {
           'Authorization': `Bearer ${this.getToken}`,
         },

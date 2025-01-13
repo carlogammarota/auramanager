@@ -2,46 +2,47 @@
     <div>
 
 	
-		<div class="flex flex-col items-center justify-center bg-gray-100 py-10" v-if="publica">
+		<div class="flex flex-col items-center justify-center py-10 " v-if="publica">
     <!-- Contenedor del mensaje con Tailwind -->
-    <div class="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full text-center">
+    <div class="p-8 rounded-lg shadow-lg max-w-lg w-full text-center bg-black">
       <div class="flex justify-center items-center mb-4">
         <!-- Ícono de FontAwesome -->
         <i class="fas fa-gift text-4xl text-green-500 mr-4"></i>
-        <h2 class="text-3xl font-semibold text-gray-800">¡Oferta Especial!</h2>
+        <h2 class="text-3xl font-semibold text-white">¡Invitacion Especial!</h2>
       </div>
 
-      <p class="text-lg text-gray-600 mb-4">
+      <p class="text-lg text-white mb-4">
         Esta es una oferta especial de la mano de 
         <span class="font-bold text-blue-500">{{ publica }}</span>
       </p>
 
     </div>
   </div>
-        <div class="flex justify-center items-center bg-gray-100 py-12" v-if="ventaDeEntradas">
+        <div class="flex justify-center items-center py-12 bg-black" v-if="ventaDeEntradas">
             <div v-if="loader"><span class="loader"></span></div>
             <div v-if="!loader" class=" rounded ">
 
 
 
                 <!-- <h1 class="text-2xl font-bold mb-4">Información de Pago</h1> -->
-                <div class="border p-4 border-dashed border-purple-300">
+                <div class="border p-4 border-dashed border-purple-300 text-white">
                     <!-- <h2 class="text-2xl font-bold">Comprar Ticket</h2> -->
-                    <img src="@/assets/logo.png" class=" mx-auto" style="width:300px !important;"></img>
+                    <!-- <img src="@/assets/logo.png" class=" mx-auto" style="width:300px !important;"></img> -->
+					<img src="@/assets/auraBlanco.png" class=" mx-auto" style="width:300px !important;"></img>
 
 
                     <!-- <h1 class="text-2xl font-bold">Aura Productora</h1> -->
                     <!-- <h1 class="text-2xl">PRESENTA</h1> -->
-                    <img src="@/assets/flayer.jpg" class=" mx-auto my-4" style="width:300px !important;"></img>
-                    <p class="mb-4"> Sabado 25 de enero desde las 18:00hs</p>
+                    <img src="@/assets/FLAYER_1.jpg" class=" mx-auto my-4" style="width:300px !important;"></img>
+                    <p class="mb-2"> Sabado 25 de enero desde las 18:00hs</p>
                     <p class="text-2xl font-bold mb-4">CLUB BALUMBA</p>
                     <Mapa />
                     <br class=""> Pueyrredón 973, X5184 <br> Capilla del Monte, Córdoba</p>
                     <div class="my-8">
                         <div class="my-8">
-                            <h1 class="text-2xl">PRECIO</h1>
-                            <h1 class="font-bold text-2xl">$3000</h1>
-                            <h1 class="mt-2">x Ticket</h1>
+                            <h2 class="text-1xl">Anticipada</h2>
+                            <h1 class="text-2xl">Precio x Ticket</h1>
+                            <h1 class="font-bold text-2xl">{{ formatCurrency(3000) }}</h1>
                         </div>
 
                     </div>
@@ -78,7 +79,7 @@
                     </div>
 
                     <div class="total-text">
-                        <span class="text-3xl">Total: ${{ total }}</span>
+                        <span class="text-3xl">Total: {{ formatCurrency(total) }}</span>
                     </div>
                     <div class="mb-4 mt-8">
                         <label class="block text-gray-700 text-sm font-bold mb-2 mt-2" for="username">
@@ -153,8 +154,16 @@ export default {
 		const urlParams = new URLSearchParams(window.location.search);
 		const publica = urlParams.get("publica");
 		this.publica = publica;
+
+
 	},
 	methods: {
+		formatCurrency(value) {
+			return new Intl.NumberFormat('es-AR', {
+				style: 'currency',
+				currency: 'ARS',
+			}).format(value);
+		},
 		sumar() {
 			this.cantidadDeTickets++;
 		},
@@ -177,10 +186,10 @@ export default {
           
 
 				//produccion
-				// axios.post('https://api.charlygproducciones.com/generar-link', {
+				// axios.post('https://api-aura.armortemplate.com/generar-link', {
 				//test
 				axios
-					.post("https://api.charlygproducciones.com/generar-link", {
+					.post("https://api-aura.armortemplate.com/generar-link", {
 						cantidad: this.cantidadDeTickets,
 						email: this.email,
 

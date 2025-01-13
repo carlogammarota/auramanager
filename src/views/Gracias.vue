@@ -6,8 +6,8 @@
             <div v-if="loader"><span class="loader"></span></div>
             <div class="bg-white p-8 rounded shadow-md max-w-md w-full" v-if="!loader">
                 <h1 class="text-2xl font-bold mb-4">Información de Pago</h1>
-                <h1 class="text-2xl font-bold">Aura Productora</h1>
-                <p class="mb-4"><strong>Fecha:</strong> Lunes 01/01 1:00hs AM</p>
+                <!-- <h1 class="text-2xl font-bold">Aura Productora</h1> -->
+                <!-- <p class="mb-4"><strong>Fecha:</strong> Lunes 01/01 1:00hs AM</p> -->
                 <!-- {{ compra.estado }} -->
 
 
@@ -42,7 +42,7 @@
                         <!-- {{ compra }} -->
                         <!-- {{ compra.linkEntradas }} -->
                         <!-- {{ link }} -->
-                        <a href="#" :href="link.link" target="_blank"
+                        <a :href="link.link" target="_blank"
                             class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full mx-2 uppercase">
                             Descargar Ticket {{ link.idNumero }}
                         </a>
@@ -80,10 +80,10 @@ export default {
     async mounted() {
 
         this.loader = true
-        axios.get(`https://api.charlygproducciones.com/payments/${this.id}`).then((response) => {
+        axios.get(`https://api-aura.armortemplate.com/payments/${this.id}`).then((response) => {
             this.compra = response.data
 
-            axios.get(`https://api.charlygproducciones.com/link-entradas/${this.id}`).then((response) => {
+            axios.get(`https://api-aura.armortemplate.com/link-entradas/${this.id}`).then((response) => {
                 this.linkEntradas = response.data.linkEntradas
                 this.loader = false
                 console.log(this.linkEntradas)

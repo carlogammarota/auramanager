@@ -11,12 +11,20 @@ export default new Vuex.Store({
     token: false,
     token_string: "",
     user: {
-      permissions: ["otro"]
+      _id: null,
+      permissions: null,
     },
     role: 'otro',
     
   },
   getters: {
+    getUser(state) {
+      //si no hay usuario ni token devolver null
+      if (!state.user || !state.token) {
+        return null;
+      }
+      return state.user; // Devuelve el usuario desde el estado
+    },
     getToken: state => {
       return state.token;
     },
@@ -25,7 +33,7 @@ export default new Vuex.Store({
     },
     getUser: state => {
       
-      return state.user.permissions[0];
+      return state.user;
       // if(state.user.permissions){
       //   return state.user.permissions[0];
       // } else {
@@ -38,10 +46,17 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    setUserId(state, userId) {
+      state.user._id = userId; // Actualiza el "_id" del usuario en el estado
+    },
+    // setToken(state, token) {
+    //   state.token = token; // Actualiza el token en el estado
+    // },
     setToken(state, token) {
-
+      
       state.token = true;
       state.token_string = token;
+      console.log("setToken", state.token_string);
     },
     setUser(state, user) {
       state.user = user;
@@ -68,6 +83,19 @@ export default new Vuex.Store({
 
   },
   actions: {
+    deleteToken({ commit }) {
+      commit("deleteToken"); // Llama a la mutación para eliminar el token
+    },
+    deleteUser({ commit }) {
+      commit("deleteUser"); // Llama a la mutación para eliminar el token
+    },
+    saveUser({ commit }, user) {
+      commit("setUser", user); // Llama a la mutación para guardar el usuario en el estado
+    },
+    saveToken({ commit }, token) {
+      console.log("saveToken");
+      commit("setToken", token); // Llama a la mutación para guardar el token en el estado
+    },
     setToken({ commit }, token) {
       commit("setToken", token);
     },
@@ -82,23 +110,34 @@ export default new Vuex.Store({
       commit("setUser", user);
     },
     checkToken({ commit }) {
-      console.log("checkToken");
-      const token = store.getters.getTokenString
-      console.log(token);
+      console.log("checkToken ejecutado");
+
+      //ignorar
+      return;
+    
+      // Obtener el token usando el getter del store
+      const token = store.getters.getTokenString;
+      console.log("Token obtenido:", token);
+    
       if (token) {
+        // Si hay token, actualizamos el estado con el commit
         commit("setToken", token);
       } else {
-        //redirect to login
-
-        //si la ruta es comprar, no redirigir
-        
-        if(router.currentRoute.name != 'comprar'){
-          router.push('/login');  
+        console.log("No hay token");
+    
+        // Verificar la ruta actual antes de redirigir
+        const currentRouteName = router.currentRoute.name;
+    
+        // No redirigir si estás en la ruta "comprar" o cualquier otra pública
+        if (currentRouteName !== "comprar" && currentRouteName !== "radio") {
+          console.log("Redirigiendo a login");
+          router.push("/login");
+        } else {
+          console.log("Permaneciendo en la ruta actual:", currentRouteName);
         }
-        // router.push('/login');  
-        console.log("no hay token");
       }
     }
+    
   },
   modules: {},
   plugins: [createPersistedState({

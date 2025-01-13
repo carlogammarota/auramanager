@@ -2,11 +2,62 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const history = require('connect-history-api-fallback');
-
+const { createServer } = require('node:http');
+const { Server } = require('socket.io');
 const app = express();
+const server = createServer(app);
+const io = new Server(server);
+const { join } = require('node:path');
+const { emit } = require('process');
+
 
 //aura
 const meta_img = 'https://i.ibb.co/LJCLSDc/Aura-Meta-Tickets.jpg';
+let onlineUsers = 0;
+let messages = [];
+io.on('connection', (socket) => {
+  console.log('a user connected');
+
+  console.log("Cliente conectado:", socket.id);
+
+  
+  // Incrementar usuarios en línea
+  onlineUsers++;
+  // Enviar número actualizado de usuarios a todos los clientes
+  io.emit('updateOnlineUsers', onlineUsers);
+
+  console.log('Número de usuarios en línea:', onlineUsers);
+
+  //socket on join
+  socket.on('join', (room) => {
+    console.log('Un usuario se ha unido a la sala:', room);
+    socket.join(room);
+  });
+
+  //chat
+  socket.on('chat message', (msg) => {
+    console.log('message: ' + msg);
+    messages.push(msg);
+    io.emit('chat message', msg);
+  });
+
+
+
+  //send messages to all clients
+  
+
+
+
+  socket.on('disconnect', () => {
+    console.log('a user disconnected');
+    
+    // Decrementar usuarios en línea
+    onlineUsers--;
+    console.log('Número de usuarios en línea:', onlineUsers);
+    // Enviar número actualizado de usuarios a todos los clientes
+    io.emit('updateOnlineUsers', onlineUsers);
+  });
+});
 
 //aztec
 // const meta_img = 'https://i.ibb.co/XyXMvXy/meta-img.jpg';
@@ -37,6 +88,10 @@ const metaTagsConfig = {
     twitterCard: 'summary_large_image'
   }
 };
+
+app.get('/', (req, res) => {
+  res.sendFile(join(__dirname, './dist/index.html'));
+});
 
 // Middleware para manejar la inyección de meta tags dinámicos
 app.use((req, res, next) => {
@@ -78,7 +133,8 @@ app.use(history());
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // Iniciar el servidor
-const port = 4444;
-app.listen(port, () => {
-  console.log(`Servidor corriendo en http://localhost:${port}`);
+
+
+server.listen(7878, () => {
+  console.log('server running at http://localhost:7878');
 });
