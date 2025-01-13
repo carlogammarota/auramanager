@@ -12,7 +12,7 @@ const { emit } = require('process');
 
 
 //aura
-const meta_img = 'https://i.ibb.co/LJCLSDc/Aura-Meta-Tickets.jpg';
+const meta_img = 'https://i.ibb.co/s1cJWSX/Aura-Meta-Tickets.jpg';
 let onlineUsers = 0;
 let messages = [];
 io.on('connection', (socket) => {
@@ -65,29 +65,29 @@ io.on('connection', (socket) => {
 // Meta tags definidos como JSON para facilitar cambios
 const metaTagsConfig = {
   '/comprar': {
-    title: 'Comprar entradas para el evento',
-    description: 'Compra tus entradas para el evento más esperado.',
-    keywords: 'entradas, evento, comprar, música, teatro',
+    title: 'Compra Entradas Anticipadas para el Evento de Rap y Electrónica en Capilla del Monte',
+    description: 'No te pierdas el evento de rap y electrónica más esperado del 2025 en Capilla del Monte. ¡Compra tus entradas anticipadas antes de que suban de precio!',
+    keywords: 'entradas anticipadas, evento Capilla del Monte, rap, electrónica, música en vivo, entradas 2025, eventos Aura Producciones',
     author: 'Aura Producciones',
-    ogTitle: 'Comprar entradas para el evento',
-    ogDescription: 'Compra tus entradas para el evento más esperado.',
-    // ogImage: 'https://charlygproducciones.com/img/logo.86714784.png', ahora en meta_img.jpeg
+    ogTitle: 'Compra Entradas para el Evento de Rap y Electrónica',
+    ogDescription: 'Adquiere tus entradas anticipadas para el evento de rap y electrónica en Capilla del Monte. ¡Aprovecha los precios antes del aumento!',
     ogImage: meta_img,
     ogUrl: 'https://aura.armortemplate.com/comprar',
     twitterCard: 'summary_large_image'
   },
   '/': {
-    title: 'Página principal',
-    description: 'Bienvenido a Aura Producciones. Descubre los mejores eventos.',
-    keywords: 'eventos, música, teatro, entradas',
+    title: 'Evento de Rap y Electrónica en Capilla del Monte | Aura Producciones',
+    description: 'Únete a Aura Producciones para el evento de rap y electrónica en Capilla del Monte el 25 de enero de 2025. Compra entradas anticipadas online antes de que suban de precio.',
+    keywords: 'evento Capilla del Monte, rap, electrónica, entradas anticipadas, música en vivo, streaming, evento 2025',
     author: 'Aura Producciones',
-    ogTitle: 'Página principal',
-    ogDescription: 'Bienvenido a Charly G Producciones. Descubre los mejores eventos.',
+    ogTitle: 'Evento de Rap y Electrónica en Capilla del Monte - 25 de Enero 2025',
+    ogDescription: 'Compra tus entradas anticipadas para el evento más esperado de rap y electrónica. Transmisión en vivo por radio y streaming.',
     ogImage: meta_img,
     ogUrl: 'https://aura.armortemplate.com',
     twitterCard: 'summary_large_image'
   }
 };
+
 
 app.get('/', (req, res) => {
   res.sendFile(join(__dirname, './dist/index.html'));
