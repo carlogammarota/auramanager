@@ -85,22 +85,20 @@ const metaTagsConfig = {
     twitterCard: 'summary_large_image'
   },
   '/': {
-    title: 'Evento de Rap y Electrónica en Capilla del Monte | Aura Producciones',
-    description: 'Únete a Aura Producciones para el evento de rap y electrónica en Capilla del Monte el 25 de enero de 2025. Compra entradas anticipadas online antes de que suban de precio.',
-    keywords: 'evento Capilla del Monte, rap, electrónica, entradas anticipadas, música en vivo, streaming, evento 2025',
-    author: 'Aura Producciones',
-    ogTitle: 'Evento de Rap y Electrónica en Capilla del Monte - 25 de Enero 2025',
-    ogDescription: 'Compra tus entradas anticipadas para el evento más esperado de rap y electrónica. Transmisión en vivo por radio y streaming.',
-    ogImage: meta_img,
-    ogUrl: 'https://aura.armortemplate.com',
+    title: 'Radio Aura en Vivo desde Capilla del Monte, Córdoba | Música las 24 Horas',
+    description: 'Sintoniza Radio Aura, la emisora en vivo desde Capilla del Monte, Córdoba, con música y contenido las 24 horas del día.',
+    keywords: 'Radio Aura, Capilla del Monte, Córdoba, música en vivo, streaming 24 horas, radio online, programación continua',
+    author: 'Radio Aura',
+    ogTitle: 'Radio Aura en Vivo - Música y Contenido las 24 Horas desde Capilla del Monte',
+    ogDescription: 'Escucha Radio Aura, la emisora en vivo desde Capilla del Monte, Córdoba. Transmisión las 24 horas con música y programas para ti.',
+    ogImage: "https://aura.armortemplate.com/img/Ahora-en-Vivo.761dae10.png",
+    ogUrl: 'https://radioaura.capilladelmonte.com',
     twitterCard: 'summary_large_image'
-  }
+}
 };
 
 
-app.get('/', (req, res) => {
-  res.sendFile(join(__dirname, './dist/index.html'));
-});
+
 
 // Middleware para manejar la inyección de meta tags dinámicos
 app.use((req, res, next) => {
@@ -133,6 +131,10 @@ app.use((req, res, next) => {
   } else {
     next(); // Continuar con el siguiente middleware si no hay meta tags definidos
   }
+});
+
+app.get('/', (req, res) => {
+  res.sendFile(join(__dirname, './dist/index.html'));
 });
 
 // Manejo del modo History para Vue.js Router
