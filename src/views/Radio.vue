@@ -22,44 +22,7 @@
                         <h2 class="text-xl font-bold">Usuarios Conectados {{ usuarios_conectados }}</h2>
                     </div>
                     <!-- Comments Section -->
-                    <div class="mt-4 mb-8">
-                        <div class="bg-gray-800 p-4 rounded text-left">
-
-                            <p class="bg-green-800 p-2 mb-2">{{ getUser._id }}</p>
-
-                            <h2 class="text-xl font-bold">Chat en Vivo</h2>
-                            <div class="mt-4">
-                                <div class="flex items-start space-x-4 mb-4">
-                                    <i class="fas fa-user-circle text-2xl mt-2"></i>
-                                    <div>
-                                        <h3 class="font-bold">Jose Alvarez</h3>
-                                        <p>Hola!!</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start space-x-4 mb-4">
-                                    <i class="fas fa-user-circle text-2xl mt-2"></i>
-                                    <div>
-                                        <h3 class="font-bold">Pepe Argento</h3>
-                                        <p>Muy buena musica!</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center hayToken">
-                                    <input type="text" placeholder="Escribe un mensaje..." v-model="message"
-                                        class="flex-grow p-2 rounded border border-gray-600 bg-gray-800 text-white" />
-                                    <button @click="sendMessage"
-                                        class="ml-2 px-4 py-2 bg-blue-600 text-white font-bold rounded hover:bg-blue-700">
-                                        Enviar
-                                    </button>
-                                </div>
-                                <!-- <input type="text" disabled placeholder="Escribe un mensaje..." class="w-full p-2 rounded bg-gray-700 text-white" /> -->
-                            </div>
-                        </div>
-                        <div class="bg-gray-800 p-4 pt-0 pb-1 rounded noHayToken">
-                            <Entrar></Entrar>
-                        </div>
-
-                        <!-- Input Section -->
-                    </div>
+                    <Chat></Chat>
 
                 </div>
                 <!-- Columna más pequeña -->
@@ -123,7 +86,7 @@
 import Entrar from "@/components/Entrar.vue";
 import { mapGetters } from "vuex";
 import socket from "@/plugins/socket"; // Importa el plugin
-
+import Chat from "@/components/Chat.vue";
 export default {
     name: "Radio",
     data() {

@@ -6,56 +6,64 @@ const { createServer } = require('node:http');
 const { Server } = require('socket.io');
 const app = express();
 const server = createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+      origin: "http://localhost:8080", // Cambia esto al puerto donde corre Vue
+      methods: ["GET", "POST"],
+  },
+});
 const { join } = require('node:path');
 const { emit } = require('process');
+const cors = require('cors');
+
+const axios = require('axios');
+app.use(cors());
+app.use(express.json());
 
 
 //aura
 const meta_img = 'https://i.ibb.co/s1cJWSX/Aura-Meta-Tickets.jpg';
-let onlineUsers = 0;
-let messages = [];
-io.on('connection', (socket) => {
-  console.log('a user connected');
 
+
+// Variables globales para manejar usuarios y mensajes
+let onlineUsers = 0; // Contador de usuarios en línea
+let messages = [];   // Almacena el historial de mensajes
+
+// Manejo de conexión de clientes
+io.on("connection", (socket) => {
   console.log("Cliente conectado:", socket.id);
 
-  
-  // Incrementar usuarios en línea
+  // Incrementar el contador de usuarios en línea
   onlineUsers++;
-  // Enviar número actualizado de usuarios a todos los clientes
-  io.emit('updateOnlineUsers', onlineUsers);
+  console.log("Usuarios en línea:", onlineUsers);
 
-  console.log('Número de usuarios en línea:', onlineUsers);
+  // Notificar a todos los clientes el número de usuarios conectados
+  io.emit("updateOnlineUsers", onlineUsers);
 
-  //socket on join
-  socket.on('join', (room) => {
-    console.log('Un usuario se ha unido a la sala:', room);
-    socket.join(room);
+  // Enviar historial de mensajes al nuevo cliente conectado
+  socket.emit("loadMessages", messages);
+
+  // Manejar el envío de mensajes
+  socket.on("sendMessage", (data) => {
+    console.log("Mensaje recibido:", data);
+
+    // Agregar mensaje al historial
+    messages.push(data);
+
+    // Enviar el mensaje a todos los clientes
+    io.emit("receiveMessage", data);
   });
 
-  //chat
-  socket.on('chat message', (msg) => {
-    console.log('message: ' + msg);
-    messages.push(msg);
-    io.emit('chat message', msg);
-  });
+  // Manejar desconexión de clientes
+  socket.on("disconnect", () => {
+    console.log("Cliente desconectado:", socket.id);
 
-
-
-  //send messages to all clients
-  
-
-
-
-  socket.on('disconnect', () => {
-    console.log('a user disconnected');
-    
-    // Decrementar usuarios en línea
+    // Decrementar el contador de usuarios en línea
     onlineUsers--;
-    console.log('Número de usuarios en línea:', onlineUsers);
-    // Enviar número actualizado de usuarios a todos los clientes
-    io.emit('updateOnlineUsers', onlineUsers);
+    console.log("Usuarios en línea:", onlineUsers);
+
+    // Notificar a todos los clientes el número actualizado de usuarios conectados
+    io.emit("updateOnlineUsers", onlineUsers);
   });
 });
 
