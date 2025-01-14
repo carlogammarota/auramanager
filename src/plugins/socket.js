@@ -2,7 +2,7 @@
 import { io } from "socket.io-client";
 
 const socket = io("https://aura.armortemplate.com"); // Cambia la URL al del servidor socket.io
-// const socket = io("http://192.168.1.3:7878"); // Cambia la URL al del servidor socket.io
+// const socket = io("http://192.168.1.3:9090"); // Cambia la URL al del servidor socket.io
 
 //token
 

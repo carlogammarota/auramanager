@@ -7,7 +7,7 @@
         <div class="container mx-auto p-4">
             <div class="grid grid-cols-3 gap-4">
                 <!-- Columna más grande -->
-                <div class="col-span-2 text-white p-4 rounded">
+                <div class="col-span-2 text-white p-4 rounded" >
                     <img src="../assets/Ahora-en-Vivo.png" class="bg-white mb-4" alt="Evento Aura"
                         style="max-width: 100%; height: auto; ">
                     <img src="../assets/Programacion1.jpg" alt="" class="mb-4">
@@ -92,11 +92,11 @@ export default {
     data() {
         return {
             usuarios_conectados: 0,
-            message: "",
         };
     },
     components: {
         Entrar,
+        Chat,
     },
     computed: {
         getToken() {
@@ -111,9 +111,7 @@ export default {
         if (this.getToken) {
             const user = this.getRole; // Obtén el usuario desde Vuex
             if (user && user._id) {
-                // Envía el user._id al servidor por socket
-                socket.emit("join", { userId: user._id });
-                console.log("User ID enviado al servidor:", user._id);
+
             }
         } else {
             console.warn("No hay token disponible.");
@@ -121,10 +119,6 @@ export default {
         this.init();
     },
     methods: {
-        sendMessage() {
-            console.log("Mensaje enviado");
-            socket.emit("chat message", { message: this.message });
-        },
 
         init() {
             socket.on("connect", () => {
@@ -147,10 +141,7 @@ export default {
                 this.usuarios_conectados = data;
             });
 
-            // chat message
-            socket.on("chat message", (data) => {
-                console.log("Mensaje de chat:", data);
-            });
+
         }
     },
 };

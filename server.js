@@ -8,8 +8,9 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
-      origin: "http://localhost:8080", // Cambia esto al puerto donde corre Vue
-      methods: ["GET", "POST"],
+    origin: "*", // Cambia al dominio y puerto de tu frontend
+    methods: ["GET", "POST"],
+    credentials: true, // Permitir cookies o encabezados con credenciales
   },
 });
 const { join } = require('node:path');

@@ -1,79 +1,97 @@
 <template>
-    <div>
-      <!-- Navbar -->
-<nav class="bg-gray-800 p-4 flex justify-between items-center flex-wrap  mx-auto">
-  <div class="flex items-center space-x-2 text-2xl font-bold">
-    <img src="../assets/auraBlanco.png" class="w-32 " alt="Profile Picture">
-    <!-- <span class="hidden sm:block" style="margin-bottom: 13px;">Aura Producciones</span> -->
-  </div>
+  <div>
+    <!-- Navbar -->
+    <nav class="bg-gray-800 p-4 flex justify-between items-center flex-wrap mx-auto">
 
-  <!-- Menu de navegación -->
-  <div class="flex items-center space-x-4 sm:space-x-6">
-
-    <!-- User Profile Login -->
-    <div class="flex items-center space-x-3" v-if="getToken">
-      <!-- {{ getUser }} -->
-      <p class="text-lg font-medium text-white hidden md:block" >{{ getUser.name }}</p>
-      <img :src="getUser.imagen" id="user_picture"
-       class="w-10 h-10 rounded-full object-cover" alt="Profile Picture">
-    </div>
-
-    <!-- no login -->
-    <div class="flex justify-center" v-if="!getToken">
-      <div class="">
-        <a href="https://api-aura.armortemplate.com/auth/google"
-        class="flex items-center px-4 py-2 bg-white text-gray-700 font-medium border border-gray-300 rounded-lg shadow-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/48px-Google_%22G%22_logo.svg.png?20230822192911"
-          alt="Google" class="w-5 h-5 mr-2">
-        Entrar con Google
-      </a>
+      <!-- Logo y Nombre -->
+      <div class="flex items-center space-x-2 text-2xl font-bold">
+        <img src="../assets/auraBlanco.png" class="w-32" alt="Profile Picture">
       </div>
+
+      <!-- Menu de navegación para escritorio -->
+      <div class="hidden md:flex items-center space-x-6">
+        <!-- Dropdown para opciones de usuario -->
+        <div class="relative">
+          <button class="text-white font-medium" @click="toggleDropdown">
+            Opciones <i class="fas fa-caret-down"></i>
+          </button>
+          <div v-if="dropdownVisible" class="absolute right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-lg">
+            <router-link to="/ruta1" class="block py-2 px-4 text-white">Opción 1</router-link>
+            <router-link to="/ruta2" class="block py-2 px-4 text-white">Opción 2</router-link>
+            <button @click="logout" class="block py-2 px-4 text-red-500">Salir</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Icono de menú para pantallas pequeñas (mobile) -->
+      <div class="md:hidden">
+        <button @click="toggleMobileMenu" class="text-white focus:outline-none">
+          <i class="fas fa-bars text-2xl"></i>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Menú para pantallas pequeñas (mobile) -->
+    <div v-show="mobileMenuVisible" id="mobileMenu" class="w-full flex-col items-center space-y-4 p-4 bg-gray-800 text-white md:hidden">
+      <div class="flex justify-between items-center w-full">
+        <p class="text-lg font-medium">{{ getUser ? getUser.name : 'Invitado' }}</p>
+        <button @click="logout" class="text-red-500">Salir</button>
+      </div>
+      <router-link to="/ruta1" class="block py-2 text-white">Opción 1</router-link>
+      <router-link to="/ruta2" class="block py-2 text-white">Opción 2</router-link>
     </div>
 
-    <!-- Icono de menú para pantallas pequeñas -->
-    <div class="sm:hidden">
-      <button id="menuToggle" class="text-white focus:outline-none">
-        <i class="fas fa-bars text-2xl"></i>
-      </button>
-    </div>
+    <main>
+      <router-view />
+    </main>
   </div>
+</template>
 
-  
-
-  <!-- Menú desplegable para pantallas pequeñas -->
-  <div id="mobileMenu"
-    class="w-full hidden sm:hidden flex-col items-center space-y-4 p-4 bg-gray-800 text-white sm:hidden">
-    <div class="flex items-center space-x-3">
-      Menu
-    </div>
-
-  </div>
-</nav>
-      <main>
-        
-        <router-view />
-      </main>
-    </div>
-  </template>
-  
-  <script>
-    import { mapGetters } from "vuex";
-  export default {
-    name: "SiteLayout",
-    computed: {
-      getToken() {
-        return this.$store.getters.getToken;
-      },
-      getRole() {
-        return this.$store.getters.getUser;
-      },
-    ...mapGetters(['getUser', 'getTokenString'])
+<script>
+import { mapGetters, mapActions } from "vuex";
+export default {
+  name: "SiteLayout",
+  data() {
+    return {
+      mobileMenuVisible: false,
+      dropdownVisible: false
+    };
+  },
+  computed: {
+    getToken() {
+      return this.$store.getters.getToken;
     },
-  };
-  </script>
-  
-  <style>
-  /* Estilos específicos del layout site */
-  </style>
-  
+    getUser() {
+      return this.$store.getters.getUser;
+    }
+  },
+  methods: {
+    ...mapActions(['logout']),
+    toggleMobileMenu() {
+      this.mobileMenuVisible = !this.mobileMenuVisible;
+    },
+    toggleDropdown() {
+      this.dropdownVisible = !this.dropdownVisible;
+    }
+  }
+};
+</script>
+
+<style scoped>
+/* Estilos específicos del layout site */
+#mobileMenu {
+  display: flex;
+  flex-direction: column;
+}
+
+#mobileMenu a {
+  text-decoration: none;
+  padding: 10px;
+  color: white;
+  border-bottom: 1px solid #fff;
+}
+
+#mobileMenu a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+</style>
