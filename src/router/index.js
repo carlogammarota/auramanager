@@ -13,6 +13,7 @@ import Autologin from "../views/Autologin.vue";
 // Importa los layouts
 import AdminLayout from "@/layouts/AdminLayout.vue";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import GraciasPorPatrocinar from "../views/GraciasPorPatrocinar.vue";
 Vue.use(VueRouter);
 const routes = [
   {
@@ -86,6 +87,12 @@ const routes = [
     path: "/gracias/:id",
     name: "gracias",
     component: Gracias, // Página de agradecimiento después de una compra o acción
+    meta: { auth: false }, // No requiere autenticación
+  },
+  {
+    path: "/gracias-patrocinar/:id",
+    name: "gracias-patrocinar",
+    component: GraciasPorPatrocinar, // Página de agradecimiento después de una compra o acción
     meta: { auth: false }, // No requiere autenticación
   },
 ];
