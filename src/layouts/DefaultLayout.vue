@@ -11,11 +11,13 @@
       <div class="flex items-center space-x-4 sm:space-x-6">
 
         <!-- User Profile Login -->
-        <div class="flex items-center space-x-3" v-if="getUser.name">
+        <div class="flex items-center space-x-3" v-if="getUser">
           <!-- {{ getUser }} -->
           <p class="text-lg font-medium text-white hidden md:block">{{ getUser.name }}</p>
-          <img :src="getUser.imagen" id="user_picture" class="w-10 h-10 rounded-full object-cover"
+          <img :src="getUser.imagen"  v-if="getUser.imagen" id="user_picture" class="w-10 h-10 rounded-full object-cover"
             alt="Profile Picture">
+            <!-- logout -->
+             <button @click="logout" v-if="getUser._id" class="bg-red-500 text-white px-4 py-2 rounded-lg text-sm">Salir</button>
         </div>
 
         <!-- no login -->
@@ -32,7 +34,7 @@
         </div>
 
         <!-- Icono de menú para pantallas pequeñas -->
-        <div class="sm:hidden">
+        <div class="sm:hidden hidden">
           <button id="menuToggle" class="text-white focus:outline-none">
             <i class="fas fa-bars text-2xl"></i>
           </button>
