@@ -41,7 +41,7 @@
           <span class="text-sm">Sitio de Compra</span>
         </router-link>
         <router-link
-          to="/entrada"
+          to="/admin/entrada"
           style="background: #221274"
           class="bg-purple-500 hover:bg-purple-700 text-white font-bold px-4 rounded-lg flex items-center space-x-2"
         >
@@ -49,7 +49,7 @@
           <span class="text-sm">Administracion Entrada</span>
         </router-link>
         <router-link
-          to="/publicas"
+          to="/admin/publicas"
           style="background: #221274"
           class="bg-purple-500 hover:bg-purple-700 text-white font-bold px-4 rounded-lg flex items-center space-x-2"
         >
@@ -57,14 +57,14 @@
           <span class="text-sm">Publicas</span>
         </router-link>
         <router-link
-          to="/radio"
+          to="/"
           class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold px-4 rounded-lg flex items-center space-x-2 py-1"
         >
           <!-- <i class="fas fa-times-circle text-xl"></i> -->
           <span class="text-sm">Radio</span>
         </router-link>
         <router-link
-          to="/barra"
+          to="/admin/barra"
           style="background: #221274"
           class="bg-purple-500 hover:bg-purple-700 text-white font-bold px-4 rounded-lg flex items-center space-x-2 py-1"
         >

@@ -103,7 +103,7 @@ export default new Vuex.Store({
     async logout ({ commit }) {    
       commit('logout') 
       localStorage.removeItem('vuex');
-      // location.reload()  
+      location.reload()  
     },
     //set user
     async setUser({ commit }, user) {

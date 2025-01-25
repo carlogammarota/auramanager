@@ -42,7 +42,7 @@ const routes = [
         name: "entrada",
         path: "entrada",
         component: Entrada, // Página para gestionar entradas
-        meta: { auth: true, permissions: ['entrada'] }, // Requiere autenticación y permisos de entrada
+        meta: { auth: true, permissions: ['admin'] }, // Requiere autenticación y permisos de entrada
       },
       {
         name: "login",
