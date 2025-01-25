@@ -31,7 +31,7 @@
                     <img src="../assets/slogan.png" alt="">
 
                     <a href="https://aura.armortemplate.com/comprar">
-                        <img class="mt-4" src="../assets/FLAYER_1.jpg" alt="">
+                        <img class="mt-4" src="../assets/NUEVO_FLAYER.jpg" alt="">
                         <img class="mt-4 cursor-pointer" src="../assets/comprar-tickets.png" alt="">
                     </a>
 

@@ -42,7 +42,7 @@
                         <div class="my-8">
                             <h2 class="text-1xl">Anticipada</h2>
                             <h1 class="text-2xl">Precio x Ticket</h1>
-                            <h1 class="font-bold text-2xl">{{ formatCurrency(3000) }}</h1>
+                            <h1 class="font-bold text-2xl">{{ formatCurrency(4000) }}</h1>
                         </div>
 
                     </div>
@@ -144,7 +144,7 @@ export default {
 			loader: false,
 			cantidadDeTickets: 1,
 			email: "",
-			total: 3000,
+			total: 4000,
             participantes: [],
 			publica: ''
 		};
@@ -237,7 +237,7 @@ export default {
 	},
 	watch: {
 		cantidadDeTickets: function (val) {
-			this.total = val * 3000;
+			this.total = val * 4000;
 		},
 	},
 	components: {
