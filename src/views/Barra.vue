@@ -146,7 +146,7 @@
       </div>
     </div>
 
-    <div class="flex flex-col flex-1 h-full overflow-hidden" v-show="false">
+    <div class="flex flex-col flex-1 h-full overflow-hidden" v-show="true">
       <!-- Navbar -->
       <header class="flex-shrink-0 border-b">
         <div class="flex items-center justify-between p-2">
@@ -397,7 +397,7 @@
           <!-- hay que hacer ventas de los tragos ent iempo real creando un servicIO
           en feathers llamado ventas  -->
 
-          <div class="flex flex-col mt-6" v-show="false">
+          <div class="flex flex-col mt-6">
             <h3 class="mt-6 text-xl">Ventas</h3>
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div
@@ -442,6 +442,7 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                       <!-- {{ventas.}}tragos -->
+                       
                       <template>
                         <div
                           class="transition-all hover:bg-gray-100 hover:shadow-lg"
@@ -537,7 +538,7 @@ export default {
 
       axios
         .post(
-          "http://192.168.1.3:3030/ventas-all/",
+          "https://api-aura.armortemplate.com/ventas-all/",
           // "https://radio-aura.armortemplate.com/ventas/",
           this.values,
           {
