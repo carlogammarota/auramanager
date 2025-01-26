@@ -72,7 +72,7 @@ export default {
             const sound = new Audio(require('@/assets/bep.mp3'))
             sound.play()
             this.$router.push({
-                path: '/entradas/' + val,
+                path: '/admin/entradas/' + val,
             })
         }
     }

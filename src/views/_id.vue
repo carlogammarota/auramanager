@@ -239,7 +239,7 @@ export default {
             // if (dni && dniMayor) {
             this.modal = false;
             this.loader = true;
-            axios.patch('https://api-aura.armortemplate.com/entradas/' + this.$route.params.id, {
+            axios.patch('https://api-aura.armortemplate.com/admin/entradas/' + this.$route.params.id, {
                 // axios.patch('http://192.168.1.8:5050/entradas/' + this.$route.params.id, {
                 estado: 'ingreso',
                 // dni: ''

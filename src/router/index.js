@@ -29,6 +29,12 @@ const routes = [
     ],
   },
   {
+    name: "entrada",
+    path: "entrada",
+    component: Entrada, // Página para gestionar entradas
+    meta: { auth: true, permissions: ['admin'] }, // Requiere autenticación y permisos de entrada
+  },
+  {
     path: "/admin",
     component: AdminLayout, // Usa el layout para el área de administración
     children: [
