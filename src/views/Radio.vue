@@ -30,7 +30,7 @@
                 <div class="text-white p-4 rounded">
                     <img src="../assets/slogan.png" alt="">
 
-                    <a href="https://aura.armortemplate.com/comprar">
+                    <a href="https://aura.armortemplate.com/comprar" class="hidden">
                         <img class="mt-4" src="../assets/NUEVO_FLAYER.jpg" alt="">
                         <img class="mt-4 cursor-pointer" src="../assets/comprar-tickets.png" alt="">
                     </a>
