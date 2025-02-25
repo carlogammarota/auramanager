@@ -1,24 +1,34 @@
 <template>
     <div>
         <div class="p-4 rounded mt-4 bg-black">
-            <h2 class="text-2xl font-bold "><i class="fa-icon-class text-4xl text-black mb-4"></i>Patrocinadores </h2>
+            <h2 class="text-2xl font-bold flex items-center">
+                <i class="fa-solid fa-star"></i>
+                <span class="ml-4">Top Patrocinadores</span>
+            </h2>
+
             <div class="mt-4 space-y-4">
                 <p v-if="patrocinadores.length === 0">No hay patrocinadores. ¡Sé el primero!</p>
 
-                <div v-for="patrocinador in patrocinadores" :key="patrocinador.id" class="flex justify-between items-center bg-gray-700 p-2 rounded">
+                <!-- Mostrar patrocinadores agrupados y ordenados -->
+                <div v-for="patrocinador in patrocinadores" :key="patrocinador._id" class="flex justify-between items-center bg-gray-700 p-2 rounded">
                     <div class="flex items-start space-x-4 text-left">
-                        <img :src="patrocinador.usuario.imagen" alt="patrocinador" class="w-12 h-12 rounded-full">
+                        <!-- Mostrar la imagen si está disponible -->
+                        <img :src="patrocinador.imagen" alt="Patrocinador" class="w-12 h-12 rounded-full">
+                        
                         <div>
-                            <h3 class="font-bold">{{ patrocinador.usuario.displayName }}</h3>
+                            <!-- Mostrar el nombre del patrocinador -->
+                            <h3 class="font-bold">{{ patrocinador.displayName }}</h3>
+                            <!-- Mostrar la fecha en formato adecuado -->
                             <p class="text-sm text-gray-400">{{ patrocinador.createdAt }} hs</p>
                         </div>
                     </div>
+                    <!-- Mostrar el monto del patrocinador -->
                     <span>{{ formatCurrency(patrocinador.monto) }}</span>
                 </div>
 
                 <div v-if="!getTokenString" class="mb-4">
                     <p class="text-center text-white mt-2 pt-4">Necesitas entrar para poder patrocinar.</p>
-                    <a href="https://api-aura.armortemplate.com/auth/google"
+                    <a href="https://api.auraproducciones.lat/auth/google"
                         class="flex items-center px-4 py-2 bg-white text-gray-700 font-medium border border-gray-300 rounded-lg shadow-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 m-auto mt-2 mb-2">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/48px-Google_%22G%22_logo.svg.png?20230822192911"
                             alt="Google" class="w-5 h-5 mr-2 ">
@@ -49,6 +59,8 @@
     </div>
 </template>
 
+
+
 <script>
 import { mapGetters } from "vuex";
 import axios from "axios";
@@ -72,21 +84,41 @@ export default {
     methods: {
         async getPatrocinadores() {
             try {
-                const response = await axios.get("https://api-aura.armortemplate.com/patrocinadores", {
-                
-                });
+                const response = await axios.get("https://api.auraproducciones.lat/patrocinadores");
+
+                // Creamos un objeto para almacenar los patrocinadores agrupados por usuario
+                const patrocinadoresMap = {};
+
                 response.data.data.forEach((patrocinador) => {
-                    patrocinador.createdAt = moment(patrocinador.createdAt).format("DD/MM/YYYY HH:mm");
+                    if (patrocinador.usuario && patrocinador.usuario._id) {
+                        // Si el usuario existe, agrupar patrocinadores por ID
+                        if (patrocinadoresMap[patrocinador.usuario._id]) {
+                            patrocinadoresMap[patrocinador.usuario._id].monto += patrocinador.monto;
+                        } else {
+                            patrocinadoresMap[patrocinador.usuario._id] = {
+                                ...patrocinador.usuario,
+                                monto: patrocinador.monto,
+                                createdAt: patrocinador.createdAt
+                            };
+                        }
+
+                        // Formatear la fecha para mostrarla correctamente
+                        patrocinadoresMap[patrocinador.usuario._id].createdAt = moment(patrocinador.createdAt).format("DD/MM/YYYY HH:mm");
+                    }
                 });
-                //ordenar por fecha de creación el ultimo primero
-                this.patrocinadores = response.data.data.reverse();
 
+                // Convertimos el objeto patrocinadoresMap a un array
+                const patrocinadoresArray = Object.values(patrocinadoresMap);
 
-//                this.patrocinadores = response.data.data;
+                // Ordenar por monto de mayor a menor
+                this.patrocinadores = patrocinadoresArray.sort((a, b) => b.monto - a.monto);
+
+                console.log("Patrocinadores ordenados y sumados:", this.patrocinadores);
             } catch (error) {
                 console.error("Error al obtener patrocinadores:", error);
             }
         },
+
         async patrocinar() {
             console.log("Monto seleccionado:", this.montoPatrocinio);
             //transformar quitar el formato de moneda
@@ -95,18 +127,18 @@ export default {
             // tranformar a enentyero
             this.montoPatrocinio = parseInt(this.montoPatrocinio);
             // Aquí puedes realizar una llamada a tu backend para enviar el monto
-            // post https://api-aura.armortemplate.com/generar-link-patrocinar patrocinador, monto
-            axios.post("https://api-aura.armortemplate.com/generar-link-patrocinar", {
+            // post https://api.auraproducciones.lat/generar-link-patrocinar patrocinador, monto
+            axios.post("https://api.auraproducciones.lat/generar-link-patrocinar", {
                 patrocinador: this.getUser,
                 monto: this.montoPatrocinio,
 
             },
-            {
-                headers: {
-                    Authorization: `Bearer ${this.getTokenString}`,
-                },
-            }
-        ).then((response) => {
+                {
+                    headers: {
+                        Authorization: `Bearer ${this.getTokenString}`,
+                    },
+                }
+            ).then((response) => {
                 console.log("Link de pago:", response.data);
                 // window.open(response.data.data, "_blank");
                 //redirect

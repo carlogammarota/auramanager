@@ -186,10 +186,10 @@ export default {
           
 
 				//produccion
-				// axios.post('https://api-aura.armortemplate.com/generar-link', {
+				// axios.post('https://api.auraproducciones.lat/generar-link', {
 				//test
 				axios
-					.post("https://api-aura.armortemplate.com/generar-link", {
+					.post("https://api.auraproducciones.lat/generar-link", {
 						cantidad: this.cantidadDeTickets,
 						email: this.email,
 

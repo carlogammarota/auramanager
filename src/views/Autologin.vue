@@ -45,7 +45,7 @@
       async traerUsuario() {
         try {
           let user = await axios.get(
-            `https://api-aura.armortemplate.com/users/${this.userId}`,
+            `https://api.auraproducciones.lat/users/${this.userId}`,
             {
               headers: {
                 Authorization: `Bearer ${this.token}`,

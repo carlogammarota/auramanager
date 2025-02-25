@@ -43,7 +43,7 @@
           <li v-for="ticket in tickets" :key="ticket._id" class="p-4 bg-gray-100 rounded-md flex justify-between items-center">
             <span>{{ ticket.fullname }} - {{ ticket.publica }}</span>
             <div class="flex gap-2">
-              <a :href="`https://api-aura.armortemplate.com/descargar-entradas/${ticket._id}`" class="text-blue-600 hover:underline">
+              <a :href="`https://api.auraproducciones.lat/descargar-entradas/${ticket._id}`" class="text-blue-600 hover:underline">
                 Ver Ticket
               </a>
               <button @click="copySingleLink(ticket._id)" class="text-green-600 hover:underline">
@@ -86,7 +86,7 @@ export default {
       const requests = [];
       for (let i = 0; i < this.cantidad; i++) {
         const entry = { ...this.form };
-        requests.push(axios.post('https://api-aura.armortemplate.com/entradas', entry, {
+        requests.push(axios.post('https://api.auraproducciones.lat/entradas', entry, {
           headers: {
             Authorization: `Bearer ${this.getToken}`,
           },
@@ -107,14 +107,14 @@ export default {
     },
     copyLinks() {
       // Unir todos los links con un salto de línea entre cada uno
-      const links = this.tickets.map(ticket => `https://api-aura.armortemplate.com/descargar-entradas/${ticket._id}` + ' ').join('\n');
+      const links = this.tickets.map(ticket => `https://api.auraproducciones.lat/descargar-entradas/${ticket._id}` + ' ').join('\n');
       navigator.clipboard.writeText(links).then(() => {
         alert('Los links de todos los tickets han sido copiados al portapapeles');
       });
     },
     copySingleLink(ticketId) {
       // Generar el enlace para el ticket individual
-      const link = `https://api-aura.armortemplate.com/descargar-entradas/${ticketId}`;
+      const link = `https://api.auraproducciones.lat/descargar-entradas/${ticketId}`;
       navigator.clipboard.writeText(link).then(() => {
         alert('El link del ticket ha sido copiado al portapapeles');
       });

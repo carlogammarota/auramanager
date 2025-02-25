@@ -538,7 +538,7 @@ export default {
 
       axios
         .post(
-          "https://api-aura.armortemplate.com/ventas-all/",
+          "https://api.auraproducciones.lat/ventas-all/",
           // "https://radio-aura.armortemplate.com/ventas/",
           this.values,
           {
@@ -560,7 +560,7 @@ export default {
     traerVentas() {
       axios
         .get(
-          "https://api-aura.armortemplate.com/ventas-all/",
+          "https://api.auraproducciones.lat/ventas-all/",
           // axios.get("https://radio-aura.armortemplate.com/ventas/",
           {
             headers: { Authorization: "Bearer " + this.token },
