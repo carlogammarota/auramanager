@@ -28,7 +28,11 @@ const meta_img = 'https://i.ibb.co/s1cJWSX/Aura-Meta-Tickets.jpg';
 
 // Variables globales para manejar usuarios y mensajes
 let onlineUsers = 0; // Contador de usuarios en línea
+let usuarios = [];
 let messages = [];   // Almacena el historial de mensajes
+
+
+
 
 // Manejo de conexión de clientes
 io.on("connection", (socket) => {
@@ -36,6 +40,7 @@ io.on("connection", (socket) => {
 
   // Incrementar el contador de usuarios en línea
   onlineUsers++;
+
   console.log("Usuarios en línea:", onlineUsers);
 
   // Notificar a todos los clientes el número de usuarios conectados
@@ -44,7 +49,26 @@ io.on("connection", (socket) => {
   // Enviar historial de mensajes al nuevo cliente conectado
   socket.emit("loadMessages", messages);
 
-  // Manejar el envío de mensajes
+  socket.on("join", (data) => {
+    console.log("Usuarios", usuarios);
+
+    if (data.user) {
+      let existingUser = usuarios.find((user) => user._id === data.user._id);
+
+      if (existingUser) {
+        // Si el usuario ya está en la lista, solo actualiza su socketId
+        existingUser.socketId = socket.id;
+      } else {
+        // Si el usuario no está, lo agrega
+        data.user.socketId = socket.id;
+        usuarios.push(data.user);
+      }
+
+      // Notificar a todos los clientes la lista actualizada de usuarios
+      io.emit("updateUsers", usuarios);
+    }
+  });
+
   socket.on("sendMessage", (data) => {
     console.log("Mensaje recibido:", data);
 
@@ -63,10 +87,18 @@ io.on("connection", (socket) => {
     onlineUsers--;
     console.log("Usuarios en línea:", onlineUsers);
 
+    // Remover el usuario de la lista basado en el socketId
+    usuarios = usuarios.filter((user) => user.socketId !== socket.id);
+    console.log("Usuarios conectados:", usuarios);
+
+    // Enviar la lista de usuarios actualizada a todos los clientes
+    io.emit("updateUsers", usuarios);
+
     // Notificar a todos los clientes el número actualizado de usuarios conectados
     io.emit("updateOnlineUsers", onlineUsers);
   });
 });
+
 
 //aztec
 // const meta_img = 'https://i.ibb.co/XyXMvXy/meta-img.jpg';
@@ -81,7 +113,7 @@ const metaTagsConfig = {
     ogTitle: 'Compra Entradas para el Evento de Rap y Electrónica',
     ogDescription: 'Adquiere tus entradas anticipadas para el evento de rap y electrónica en Capilla del Monte. ¡Aprovecha los precios antes del aumento!',
     ogImage: meta_img,
-    ogUrl: 'https://aura.armortemplate.com/comprar',
+    ogUrl: 'https://auraproducciones.lat/comprar',
     twitterCard: 'summary_large_image'
   },
   '/': {
@@ -91,8 +123,8 @@ const metaTagsConfig = {
     author: 'Radio Aura',
     ogTitle: 'Radio Aura en Vivo - Música y Contenido las 24 Horas desde Capilla del Monte',
     ogDescription: 'Escucha Radio Aura, la emisora en vivo desde Capilla del Monte, Córdoba. Transmisión las 24 horas con música y programas para ti.',
-    ogImage: "https://aura.armortemplate.com/img/Ahora-en-Vivo.761dae10.png",
-    ogUrl: 'https://radioaura.capilladelmonte.com',
+    ogImage: "https://auraproducciones.lat/img/Ahora-en-Vivo.761dae10.png",
+    ogUrl: 'https://auraproducciones.lat',
     twitterCard: 'summary_large_image'
 }
 };
@@ -146,6 +178,6 @@ app.use(express.static(path.join(__dirname, 'dist')));
 // Iniciar el servidor
 
 
-server.listen(9090, () => {
-  console.log('server running at http://localhost:9090');
+server.listen(4444, () => {
+  console.log('server running at http://localhost:4444');
 });

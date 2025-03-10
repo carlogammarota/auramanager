@@ -4,7 +4,10 @@
     <!-- {{ getRole }} -->
     <!--  Nuevo Header -->
 
-
+    <!-- <video controls crossorigin playsinline style="width: 100%;">
+                        <source type="application/x-mpegURL"
+                            src="https://live.auraproducciones.lat/stream/hls/playlist.m3u8">
+                    </video> -->
 
     <!-- Nuevo Header Finish -->
 

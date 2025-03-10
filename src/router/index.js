@@ -14,6 +14,8 @@ import Autologin from "../views/Autologin.vue";
 import AdminLayout from "@/layouts/AdminLayout.vue";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import GraciasPorPatrocinar from "../views/GraciasPorPatrocinar.vue";
+import PantallaCompleta from "../views/PantallaCompleta.vue";
+import Artista from "../views/Artista.vue";
 Vue.use(VueRouter);
 const routes = [
   {
@@ -24,6 +26,18 @@ const routes = [
         name: "radio",
         path: "",
         component: radio, // Radio es ahora la página principal
+        meta: { auth: false }, // No requiere autenticación
+      },
+      {
+        name: "pantalla-completa",
+        path: "pantalla-completa",
+        component: PantallaCompleta, // Página para ver la radio en pantalla completa
+        meta: { auth: false }, // No requiere autenticación
+      },
+      {
+        name: "artista",
+        path: "artista",
+        component: Artista, // Página para ver la radio en pantalla completa
         meta: { auth: false }, // No requiere autenticación
       },
     ],

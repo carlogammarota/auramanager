@@ -1,37 +1,49 @@
 <template>
-    <div class="container mx-auto py-12 px-6">
-      <h2 class="text-4xl font-bold text-center mb-8 text-white animate__animated animate__fadeIn">
-        Programación Semanal 📅
-      </h2>
-  
-      <!-- Grilla de Programación -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div v-for="(artista, index) in programacion" :key="index"
-          :class="[
-            'rounded-lg shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-xl',
-            artista.tag === 'En Vivo' ? 'bg-gradient-to-r from-red-600 to-red-800' : 'bg-gradient-to-r from-green-600 to-green-800'
-          ]">
-          <div class="relative">
-            <img :src="artista.imagenActual" alt="Artista"
-              class="w-full h-64 object-cover">
-            <div class="absolute inset-0 bg-black opacity-50"></div>
-            <div
-              :class="[
-                'absolute top-2 right-1 text-white text-sm font-bold py-1 px-2 rounded-full shadow-lg animate__animated animate__fadeIn',
-                artista.tag === 'En Vivo' ? 'bg-red-600' : 'bg-green-600'
-              ]">
-              {{ artista.tag === 'En Vivo' ? 'En Vivo' : 'Repetición' }}
-            </div>
-            <div class="absolute bottom-4 left-4 text-white text-left">
-              <h3 class="text-xl font-bold">{{ artista.nombre }}</h3>
-              <p class="text-sm">{{ artista.descripcion }}</p>
-              <p class="text-sm">{{ artista.horarios }}</p>
-            </div>
+  <div class="container mx-auto pb-12">
+    <h2 class="text-4xl font-bold text-center mb-8 text-white animate__animated animate__fadeIn">
+      Programación Semanal 📅
+    </h2>
+
+    <!-- Grilla de Programación -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div v-for="(artista, index) in programacion" :key="index"
+        :class="[
+          'rounded-lg shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-xl',
+          artista.tag === 'En Vivo' ? 'bg-gradient-to-r from-red-600 to-red-800' : 'bg-gradient-to-r from-green-600 to-green-800'
+        ]">
+        <div class="relative">
+          <img :src="artista.imagenActual" alt="Artista"
+            class="w-full h-64 object-cover" style="height: 400px;">
+          <div class="absolute inset-0 bg-black opacity-50"></div>
+          <div
+            :class="[
+              'absolute top-2 right-1 text-white text-sm font-bold py-1 px-2 rounded-full shadow-lg animate__animated animate__fadeIn',
+              artista.tag === 'En Vivo' ? 'bg-red-600' : 'bg-green-600'
+            ]">
+            {{ artista.tag === 'En Vivo' ? 'En Vivo' : 'Repetición' }}
           </div>
+          <div class="absolute bottom-4 left-4 text-white text-left">
+            <h3 class="text-xl font-bold">{{ artista.nombre }}</h3>
+            <p class="text-sm">{{ artista.descripcion }}</p>
+            <p class="text-sm">{{ artista.horarios }}</p>
+          </div>
+             <!-- Botón Notificarme -->
+        <div class="flex justify-center mt-4 mb-4 hidden">
+          <button
+            class="bg-orange-500 text-white font-semibold py-3 px-6 rounded-full flex items-center justify-center transition transform duration-300 hover:scale-95 active:scale-90 focus:outline-none focus:ring-2 focus:ring-orange-600"
+            @click="notificarme(artista)"
+          >
+            <i class="fas fa-bell mr-2"></i>
+            Notificarme
+          </button>
         </div>
+        </div>
+
+     
       </div>
     </div>
-  </template>
+  </div>
+</template>
   
   <script>
   export default {
@@ -87,6 +99,40 @@
             tag: "En Vivo",
           },
           {
+            nombre: "Daff",
+            descripcion: "Argentina",
+            horarios: "Todos los Jueves",
+            imagenes: [
+              "https://i.ibb.co/tMLphGg1/Whats-App-Image-2025-03-08-at-9-0.jpg",
+            ],
+            imagenActual: "https://i.ibb.co/tMLphGg1/Whats-App-Image-2025-03-08-at-9-0.jpg",
+            intervalo: null,
+            tag: "En Vivo",
+          },
+          {
+            nombre: "JOA DUBZ",
+            descripcion: "Argentina",
+            horarios: "Todos los Jueves",
+            imagenes: [
+              "https://i.postimg.cc/zXSqjKBZ/Whats-App-Image-2025-03-07-at-5-36-23-AM.jpg",
+              "https://i.postimg.cc/yNWBsGTs/Whats-App-Image-2025-03-07-at-5-36-12-AM.jpg",
+            ],
+            imagenActual: "https://i.postimg.cc/zXSqjKBZ/Whats-App-Image-2025-03-07-at-5-36-23-AM.jpg",
+            intervalo: null,
+            tag: "En Vivo",
+          },
+          {
+            nombre: "Mauri D'Caria",
+            descripcion: "Brazil",
+            horarios: "Todos los Miercoles",
+            imagenes: [
+              "https://i.postimg.cc/XJ8rmmN3/mauri.jpg",
+            ],
+            imagenActual: "https://i.postimg.cc/XJ8rmmN3/mauri.jpg",
+            intervalo: null,
+            tag: "En Vivo",
+          },
+          {
             nombre: "Aura Producciones",
             descripcion: "Club Balumba",
             horarios: "Todos los Domingos",
@@ -99,6 +145,7 @@
             intervalo: null,
             tag: "Repeticion",
           },
+        
         ],
       };
     },

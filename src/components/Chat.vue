@@ -1,11 +1,12 @@
 <template>
-    <div class="mt-4 mb-8 h-[400px] flex flex-col relative" style="height:400px">
+    <div class=" mb-8 h-[400px] flex flex-col relative" style="height:400px">
       <!-- Contenedor del chat -->
+      <h2 class="text-xl font-bold mb-2">Chat en Vivo</h2>
       <div
         ref="chatContainer"
         class="bg-gray-800 p-4 rounded text-left flex-grow overflow-y-auto"
       >
-        <h2 class="text-xl font-bold">Chat en Vivo</h2>
+        
         <div class="mt-4 mb-24">
           <div
             v-for="(msg, index) in messages"
